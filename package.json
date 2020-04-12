@@ -4,7 +4,9 @@
   "description": "Kenyan API for covid19 management",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "start": "node index.js",
+    "dev":"nodemon index.js"
   },
   "repository": {
     "type": "git",
