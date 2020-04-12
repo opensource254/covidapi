@@ -9,3 +9,5 @@ const port = process.env.PORT || 5000;
 app.use('/', (req, res) => res.send({ message: 'covidapi is working!!!' }));
 
 app.listen(port, () => console.log(`app is listening on ${port}`));
+
+module.exports = app
