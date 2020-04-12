@@ -12,5 +12,19 @@
   },
   "author": "Opensource254",
   "license": "UNLICENSED",
-  "homepage": "https://bitbucket.org/opensource254/covidapi#readme"
+  "homepage": "https://bitbucket.org/opensource254/covidapi#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-asserttype": "^1.0.5",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.3",
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.4"
+  }
 }
