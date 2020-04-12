@@ -1,0 +1,16 @@
+{
+  "name": "covidapi",
+  "version": "1.0.0",
+  "description": "Kenyan API for covid19 management",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/opensource254/covidapi.git"
+  },
+  "author": "Opensource254",
+  "license": "UNLICENSED",
+  "homepage": "https://bitbucket.org/opensource254/covidapi#readme"
+}
