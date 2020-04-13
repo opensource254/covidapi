@@ -4,7 +4,7 @@
   "description": "Kenyan API for covid19 management",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha ./api/v1 --recursive --exit",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
