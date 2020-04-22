@@ -14,6 +14,16 @@ const homeRouter = require('./api/v1/routes/homeRouter');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//knex orm
+var db = require('knex')({
+	client: 'pg',
+	connection: process.env.PG_CONNECTION_STRING,
+	searchPath: ['knex', 'public'],
+	pool: { min: 0, max: 7 }
+});
+
+//use knex as db all over
+app.set('db',db);
 app.use('/', homeRouter);
 app.use('/api/v1', ApiV1);
 app.use('/admin', adminRoute);
