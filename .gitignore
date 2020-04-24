@@ -61,3 +61,5 @@ typings/
 .next
 
 /build
+#backup sql files
+db.sql

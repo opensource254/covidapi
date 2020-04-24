@@ -4,6 +4,13 @@ const express = require('express');
 const app = express();
 
 // routes for the app
+const db = require('knex')({
+    client: 'pg',
+    connection: process.env.PG_CONNECTION_STRING,
+    searchPath: ['knex', 'public'],
+    pool: { min: 0, max: 7 },
+});
+
 const ApiV1 = require('./api/v1/routes/routes');
 const usersRoute = require('./api/v1/routes/usersRouter');
 const DoctorsRoute = require('./api/v1/routes/doctorsRouter');
@@ -14,16 +21,10 @@ const homeRouter = require('./api/v1/routes/homeRouter');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//knex orm
-var db = require('knex')({
-	client: 'pg',
-	connection: process.env.PG_CONNECTION_STRING,
-	searchPath: ['knex', 'public'],
-	pool: { min: 0, max: 7 }
-});
+// knex orm
 
-//use knex as db all over
-app.set('db',db);
+// use knex as db all over
+app.set('db', db);
 app.use('/', homeRouter);
 app.use('/api/v1', ApiV1);
 app.use('/admin', adminRoute);
