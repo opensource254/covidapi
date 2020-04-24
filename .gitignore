@@ -62,4 +62,4 @@ typings/
 
 /build
 #backup sql files
-db.sql
+backup_db.sql
