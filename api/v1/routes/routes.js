@@ -1,8 +1,7 @@
 const router = require('express').Router();
+const Tipscontroller = require('../controllers/tipsController');
 
-// Define the routes here
-router.get('/', (req, res) => {
-    res.json('Api V1 Working 🚀');
-});
-
+// Routes for all the tips here
+router.post('/api/v1/tip', Tipscontroller.create);
+router.get('/api/v1/tips', Tipscontroller.getAll);
 module.exports = router;
