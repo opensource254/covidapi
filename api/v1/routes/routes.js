@@ -1,7 +1,13 @@
 const router = require('express').Router();
-const Tipscontroller = require('../controllers/tipsController');
+const TipsController = require('../controllers/tipsController');
+const AlertsController = require('../controllers/alertController');
 
 // Routes for all the tips here
-router.post('/api/v1/tip', Tipscontroller.create);
-router.get('/api/v1/tips', Tipscontroller.getAll);
+router.post('/api/v1/tip', TipsController.create);
+router.get('/api/v1/tips', TipsController.getAll);
+
+// Routes for the alerts
+router.post('/api/v1/alert', AlertsController.create);
+router.get('/api/v1/alerts', AlertsController.getAll);
+
 module.exports = router;
