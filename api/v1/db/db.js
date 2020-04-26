@@ -1,26 +1,14 @@
-/**
- * This is a knex sample with promise that is redundant since we are creating the tbles with an sql file
- * @param {*} knex
- * @param {*} Promise
- */
+const Sequelize = require('./index');
+require('dotenv').config();
 
-exports.up = function (knex, Promise) {
-    return Promise.all([
-        knex.schema
-            .createTableIfNotExists('user', function (table) {
-                table.increments();
-                // firstname
-                table.string('firstname');
-                // lastname
-                table.string('lastname');
-                // email
-                table.string('email');
-                // password
-                table.string('password');
-            })
-            .catch((err) => console.log(err)),
-    ]);
-};
-exports.down = function (knex, Promise) {
-    return Promise.all([knex.schema.dropTableIfExists('user')]);
-};
+const db = new Sequelize({
+    database: process.env.DB,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    dialect: 'postgres',
+});
+db.authenticate()
+    .then(() => console.log('Database Connected'))
+    .catch((err) => console.log(err));
+
+module.exports = db;
