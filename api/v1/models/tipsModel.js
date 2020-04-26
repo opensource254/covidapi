@@ -1,7 +1,7 @@
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
-const Tips = db.define('tips', {
+const Tip = db.define('tips', {
     title: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -15,9 +15,9 @@ const Tips = db.define('tips', {
     },
 });
 
-Tips.sync()
+Tip.sync()
     .then(() => console.log('Tips table created succesfully'))
     // eslint-disable-next-line no-unused-vars
     .catch((err) => console.log('Unable to create the user table'));
 
-module.exports = Tips;
+module.exports = Tip;
