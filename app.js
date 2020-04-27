@@ -7,5 +7,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(routes);
+app.use('/', function (req, res) {
+    return res.status(200).json({
+        status: 200,
+        Message: 'Welcome To covid API Kenya',
+    });
+});
 
 module.exports = app;
