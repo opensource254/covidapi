@@ -7,7 +7,7 @@ const Alert = db.define('alerts', {
         allowNull: false,
     },
     time: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
     },
     detail: {
