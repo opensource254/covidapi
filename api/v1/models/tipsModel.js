@@ -18,6 +18,6 @@ const Tip = db.define('tips', {
 Tip.sync()
     .then(() => console.log('Tips table created succesfully'))
     // eslint-disable-next-line no-unused-vars
-    .catch((err) => console.log('Unable to create the user table'));
+    .catch((err) => console.log('Unable to create the tips table'));
 
 module.exports = Tip;
