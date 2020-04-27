@@ -4,4 +4,14 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/13634f1f5aa1fb60f43a/test_coverage)](https://codeclimate.com/repos/5ea2c577484e0001a200a2ea/test_coverage)
 
 # Covid API
+
 >Kenyan Api for covid-19 app by opensource 254
+
+## Available endpoints
+
+| Request | Endpoint              | Function                |
+| ------- | --------------------- | ----------------------- |
+| POST    | `/api/v1/tip`         | Create a new tip        |
+| GET     | `/api/v1/tips`        | Get all tips            |
+|POST     |`/api/v1/alert`        |Create a new alert       |
+| GET     | `/api/v1/alerts`      | Get all alerts          |

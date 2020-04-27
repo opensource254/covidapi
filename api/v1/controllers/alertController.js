@@ -1,15 +1,16 @@
-const Tip = require('../models/tipsModel');
+const Alert = require('../models/alertModel');
 
-const TipsController = {
+const AlertsController = {
     async create(req, res) {
-        const { title, detail, thumbnail } = req.body;
+        const { title, time, detail } = req.body;
         try {
-            const tip = await Tip.create({ title, detail, thumbnail });
-            tip.save()
-                .then(function (currenttip) {
+            const alert = await Alert.create({ title, time, detail });
+            alert
+                .save()
+                .then(function (currentalert) {
                     return res.status(201).json({
                         status: 201,
-                        data: [currenttip],
+                        data: [currentalert],
                     });
                 })
                 .catch(function (err) {
@@ -26,11 +27,11 @@ const TipsController = {
         }
     },
     async getAll(req, res) {
-        await Tip.findAll()
-            .then(function (tips) {
+        await Alert.findAll()
+            .then(function (alerts) {
                 return res.status(200).json({
                     status: 200,
-                    data: tips,
+                    data: alerts,
                 });
             })
             .catch(function (err) {
@@ -41,4 +42,4 @@ const TipsController = {
             });
     },
 };
-module.exports = TipsController;
+module.exports = AlertsController;
