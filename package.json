@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha ./api/v1/tests/*.test.js --recursive --exit",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "fetch":"nodemon ./api/v1/controllers/newsController.js"
   },
   "repository": {
     "type": "git",
