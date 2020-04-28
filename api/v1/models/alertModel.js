@@ -19,6 +19,6 @@ const Alert = db.define('alerts', {
 Alert.sync()
     .then(() => console.log('Alert table created succesfully'))
     // eslint-disable-next-line no-unused-vars
-    .catch((err) => console.log('Unable to create the user table'));
+    .catch((err) => console.log('Unable to create the alert table'));
 
 module.exports = Alert;

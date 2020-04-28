@@ -13,5 +13,6 @@
 | ------- | --------------------- | ----------------------- |
 | POST    | `/api/v1/tip`         | Create a new tip        |
 | GET     | `/api/v1/tips`        | Get all tips            |
-|POST     |`/api/v1/alert`        |Create a new alert       |
+| POST    |`/api/v1/alert`        | Create a new alert      | 
 | GET     | `/api/v1/alerts`      | Get all alerts          |
+| GET     | `/api/v1/tweets`      | Get all tweets          |
