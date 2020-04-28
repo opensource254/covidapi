@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const routes = require('./api/v1/routes/routes');
+require('./api/v1/db/mongodb');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
