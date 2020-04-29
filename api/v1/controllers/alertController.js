@@ -2,12 +2,13 @@ const Alert = require('../models/alertModel');
 
 const AlertsController = {
     async create(req, res) {
-        const { title, time, detail } = req.body;
+        const { title, detail } = req.body;
         try {
-            const alert = await Alert.create({ title, time, detail });
+            const alert = await Alert.create({ title, detail });
             alert
                 .save()
                 .then(function (currentalert) {
+                    console.log(currentalert);
                     return res.status(201).json({
                         status: 201,
                         data: [currentalert],
@@ -40,6 +41,35 @@ const AlertsController = {
                     err,
                 });
             });
+    },
+    async updateAlert(req, res) {
+        const { title, detail } = req.body;
+        const _id = req.params.id;
+        const values = { title, detail };
+        try {
+            Alert.findOne({ where: { id: _id } }).then((_alert) => {
+                if (!_alert) {
+                    console.log('no Alert found');
+                    res.json('No Alert found');
+                }
+                console.log(`retrieved alert ${JSON.stringify(_alert, null, 2)}`);
+                Alert.update(values, { where: { id: _id }, returning: true, plain: true })
+                    // .then(Alert.findByPk(_id))
+                    .then((updatedAlert) => {
+                        console.log('Alert updated');
+                        res.json(updatedAlert);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({
+                status: 400,
+                error,
+            });
+        }
     },
 };
 module.exports = AlertsController;
