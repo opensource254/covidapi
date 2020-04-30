@@ -8,7 +8,6 @@ const AlertsController = {
             alert
                 .save()
                 .then(function (currentalert) {
-                    console.log(currentalert);
                     return res.status(201).json({
                         status: 201,
                         data: [currentalert],
@@ -40,6 +39,22 @@ const AlertsController = {
                     status: 400,
                     err,
                 });
+            });
+    },
+    async getOne(req, res) {
+        const _id = req.params.id;
+        await Alert.findOne({ where: { id: _id } })
+            .then((alert) => {
+                if (!alert) {
+                    res.json('No Alert was found');
+                } else {
+                    console.log(`retrived tip ${JSON.stringify(alert, null, 2)}`);
+                    res.json(alert);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                res.json('No Alert was found');
             });
     },
     async updateAlert(req, res) {

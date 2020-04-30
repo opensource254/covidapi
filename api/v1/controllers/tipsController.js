@@ -40,6 +40,15 @@ const TipsController = {
                 });
             });
     },
+    async getOne(req, res) {
+        const _id = req.params.id;
+        await Tip.findOne({ where: { id: _id } })
+            .then((tip) => {
+                console.log(`retrived tip ${JSON.stringify(tip, null, 2)}`);
+                res.json(tip);
+            })
+            .catch((err) => console.log(err));
+    },
     async updateTip(req, res) {
         const { title, detail, thumbnail } = req.body;
         const _id = req.params.id;
@@ -53,11 +62,11 @@ const TipsController = {
                 Tip.update(values, { where: { id: _id }, returning: true, plain: true })
                     .then((updatedTip) => {
                         res.json(updatedTip);
-                        console.log(updatedTip);
+                        // console.log(updatedTip);
                     })
                     .catch((err) => {
                         // next(err);
-                        // res.json('Could not update the tip');
+                        res.json('Could not update the tip');
                         console.log(err);
                     });
             });

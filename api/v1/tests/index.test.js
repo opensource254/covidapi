@@ -48,7 +48,7 @@ describe('/GET Tip', () => {
             .get('/api/v1/tips')
             .end((err, result) => {
                 result.should.have.status(200);
-                done(err);
+                done();
             });
     });
 });
@@ -65,7 +65,7 @@ describe('/POST Tip', () => {
             .end((err, result) => {
                 result.should.have.status(201);
                 result.body.should.be.a('object');
-                //should(result.body.values).have.property('title');
+                // should(result.body.values).have.property('title');
                 // result.body.values.should.have.property('detail');
                 // result.body.values.should.have.property('thumbnail');
                 done();
