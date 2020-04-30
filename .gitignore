@@ -64,9 +64,7 @@ typings/
 #backup sql files
 backup_db.sql
 #sequelize files
-config/
 migrations/
 seeders/
-models/
 #vscode
 .vscode

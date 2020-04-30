@@ -48,7 +48,7 @@ describe('/GET Tip', () => {
             .get('/api/v1/tips')
             .end((err, result) => {
                 result.should.have.status(200);
-                done();
+                done(err);
             });
     });
 });
