@@ -31,7 +31,7 @@ jobs:
     - run: npm run build --if-present
     #- run: psql -U postgres
     #- run: pg_isready  
-    - run: sudo apt update
+    - run: sudo apt install postgresql postgresql-contrib
     - run: sudo systemctl start postgresql
     - run: psql -U postgres -h localhost -p 5432
     - run: npx sequelize-cli db:migrate
