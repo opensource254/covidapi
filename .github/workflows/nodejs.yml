@@ -35,6 +35,8 @@ jobs:
 #       with:
 #         node-version: ${{ matrix.node-version }}
     - run: npm ci
+    - name: Connect to PostgreSQL
+    - run: node client.js
     - run: npm run build --if-present
     #- run: psql -U postgres
     - run: pg_isready  
