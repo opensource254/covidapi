@@ -1,0 +1,13 @@
+language: node_js
+
+node_js:
+    - 'lts/*'
+
+services:
+  - postgresql
+
+
+before_script:
+  - psql -c 'create database covid_test' -U postgres
+  - npx sequelize-cli db:migrate
+  
