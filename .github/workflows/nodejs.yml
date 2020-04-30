@@ -33,7 +33,7 @@ jobs:
     #- run: pg_isready  
     - run: sudo apt update
     - run: sudo apt install postgresql postgresql-contrib
-    - run: sudo systemctl start postresql
+    - run: sudo systemctl start postgresql
     - run: psql -U postgres -h localhost -p 5432
     - run: npx sequelize-cli db:migrate
     - run: npm test
