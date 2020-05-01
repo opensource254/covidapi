@@ -4,23 +4,20 @@
     "password": "postgres",
     "database": "covid_test",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "test": {
     "username": "user3121",
     "password": "98kd8a9",
     "database": "dee932clc3mg8h",
     "host": "ec2-123-73-145-214.compute-1.amazonaws.com",
-    "dialect": "pg",
-    "operatorsAliases": false
+    "dialect": "postgres"
   },
   "production": {
     "username": "root",
     "password": null,
     "database": "covidapi",
     "host": "127.0.0.1",
-    "dialect": "pg",
-    "operatorsAliases": false
+    "dialect": "postgres"
   }
 }
