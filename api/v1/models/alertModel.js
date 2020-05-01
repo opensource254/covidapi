@@ -8,6 +8,10 @@ const Alert = db.define(
             type: Sequelize.STRING,
             allowNull: false,
         },
+        time: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         detail: {
             type: Sequelize.STRING,
             allowNull: false,

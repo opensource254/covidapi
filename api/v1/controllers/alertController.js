@@ -2,15 +2,15 @@ const Alert = require('../models/alertModel');
 
 const AlertsController = {
     async create(req, res) {
-        const { title, detail } = req.body;
+        const { title, detail, time } = req.body;
         try {
-            const alert = await Alert.create({ title, detail });
+            const alert = await Alert.create({ title, time, detail });
             alert
                 .save()
                 .then(function (currentalert) {
                     return res.status(201).json({
                         status: 201,
-                        data: [currentalert],
+                        data: currentalert,
                     });
                 })
                 .catch(function (err) {

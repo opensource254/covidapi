@@ -38,7 +38,7 @@ describe('APPLICATION REQUESTS', () => {
 describe('Tips', () => {
     beforeEach((done) => {
         Tip.remove({}, (err) => {
-            done();
+            done(err);
         });
     });
 });
@@ -54,7 +54,7 @@ describe('/GET Tip', () => {
 });
 describe('/POST Tip', () => {
     it('It should POST a tip', (done) => {
-        let values = {
+        const values = {
             title: 'Test title',
             detail: 'Test detail',
             thumbnail: 'Test thumbnail',
@@ -64,11 +64,11 @@ describe('/POST Tip', () => {
             .send(values)
             .end((err, result) => {
                 result.should.have.status(201);
-                result.body.should.be.a('object');
-                // should(result.body.values).have.property('title');
-                // result.body.values.should.have.property('detail');
-                // result.body.values.should.have.property('thumbnail');
-                done();
+                result.body.should.be
+                    .a('object')
+                    .and.have.a.property('data')
+                    .which.should.be.a('object');
+                done(err);
             });
     });
 });
@@ -76,7 +76,7 @@ describe('/POST Tip', () => {
 describe('Alert', () => {
     beforeEach((done) => {
         Alert.remove({}, (err) => {
-            done();
+            done(err);
         });
     });
 });
@@ -92,8 +92,9 @@ describe('/GET Alerts', () => {
 });
 describe('/POST Alert', () => {
     it('It should POST alert', (done) => {
-        let values = {
+        const values = {
             title: 'Test title',
+            time: 'Test time',
             detail: 'Test detail',
         };
         chai.request(server)
@@ -101,10 +102,10 @@ describe('/POST Alert', () => {
             .send(values)
             .end((err, result) => {
                 result.should.have.status(201);
-                result.body.should.be.a('object');
-                // should(result.body.values).have.property('title');
-                // result.body.values.should.have.property('detail');
-                // result.body.values.should.have.property('thumbnail');
+                result.body.should.be
+                    .a('object')
+                    .and.have.a.property('data')
+                    .which.should.be.a('object');
                 done();
             });
     });
