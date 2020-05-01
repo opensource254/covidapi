@@ -57,17 +57,16 @@ const HospController = {
         const values = { title, lat, lon, description, open };
         Hospital.findOne({ where: { id: _id } }).then((_hosp) => {
             if (!_hosp) {
-                console.log('No Tips found');
+                console.log('No hospitals found');
             }
             console.log(`retrived tip ${JSON.stringify(_hosp, null, 2)}`);
             Hospital.update(values, { where: { id: _id }, returning: true, plain: true })
                 .then((updatedHosp) => {
                     res.json(updatedHosp);
-                    // console.log(updatedTip);
                 })
                 .catch((err) => {
                     // next(err);
-                    res.json('Could not update the tip');
+                    res.json('Could not update the hospitals');
                     console.log(err);
                 });
         });
