@@ -19,4 +19,8 @@
 | GET     | `/api/v1/alerts`      | Get all alerts          |
 | GET     | `/api/v1/alert/:id`   | Get an alert            |
 | PUT     | `/api/v1/alert/:id`   | Update an alert         |
+| POST    | `/api/v1/hospital`    | Create a new hospital   | 
+| GET     | `/api/v1/alerts`      | Get all hospitals       |
+| GET     | `/api/v1/alert/:id`   | Get a hospital          |
+| PUT     | `/api/v1/alert/:id`   | Update a hospital       |
 | GET     | `/api/v1/tweets`      | Get all tweets          |
