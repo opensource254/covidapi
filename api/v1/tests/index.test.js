@@ -42,16 +42,6 @@ describe('Tips', () => {
         });
     });
 });
-describe('/GET Tip', () => {
-    it('It should GET tips', (done) => {
-        chai.request(server)
-            .get('/api/v1/tips')
-            .end((err, result) => {
-                result.should.have.status(200);
-                done(err);
-            });
-    });
-});
 describe('/POST Tip', () => {
     it('It should POST a tip', (done) => {
         const values = {
@@ -72,22 +62,23 @@ describe('/POST Tip', () => {
             });
     });
 });
+describe('/GET Tip', () => {
+    it('It should GET tips', (done) => {
+        chai.request(server)
+            .get('/api/v1/tips')
+            .end((err, result) => {
+                result.should.have.status(200);
+                done(err);
+            });
+    });
+});
+
 // Alerts
 describe('Alert', () => {
     beforeEach((done) => {
         Alert.remove({}, (err) => {
             done(err);
         });
-    });
-});
-describe('/GET Alerts', () => {
-    it('It should GET Alerts', (done) => {
-        chai.request(server)
-            .get('/api/v1/alerts')
-            .end((err, result) => {
-                result.should.have.status(200);
-                done(err);
-            });
     });
 });
 describe('/POST Alert', () => {
@@ -107,6 +98,16 @@ describe('/POST Alert', () => {
                     .and.have.a.property('data')
                     .which.should.be.a('object');
                 done();
+            });
+    });
+});
+describe('/GET Alerts', () => {
+    it('It should GET Alerts', (done) => {
+        chai.request(server)
+            .get('/api/v1/alerts')
+            .end((err, result) => {
+                result.should.have.status(200);
+                done(err);
             });
     });
 });
