@@ -3,20 +3,27 @@ const Tip = require('../models/tipsModel');
 const TipsController = {
     async create(req, res) {
         const { title, detail, thumbnail } = req.body;
-        const tip = await Tip.create({ title, detail, thumbnail });
-        tip.save()
-            .then(function (currenttip) {
-                return res.status(201).json({
-                    status: 201,
-                    data: [currenttip],
+        try {
+            const tip = await Tip.create({ title, detail, thumbnail });
+            tip.save()
+                .then(function (currenttip) {
+                    return res.status(201).json({
+                        status: 201,
+                        data: [currenttip],
+                    });
+                })
+                .catch(function (err) {
+                    res.status(400).json({
+                        status: 400,
+                        err,
+                    });
                 });
-            })
-            .catch(function (err) {
-                res.status(400).json({
-                    status: 400,
-                    err,
-                });
+        } catch (error) {
+            res.status(400).json({
+                status: 400,
+                error,
             });
+        }
     },
     async getAll(req, res) {
         await Tip.findAll()
@@ -32,6 +39,43 @@ const TipsController = {
                     err,
                 });
             });
+    },
+    async getOne(req, res) {
+        const _id = req.params.id;
+        await Tip.findOne({ where: { id: _id } })
+            .then((tip) => {
+                console.log(`retrived tip ${JSON.stringify(tip, null, 2)}`);
+                res.json(tip);
+            })
+            .catch((err) => console.log(err));
+    },
+    async updateTip(req, res) {
+        const { title, detail, thumbnail } = req.body;
+        const _id = req.params.id;
+        const values = { title, detail, thumbnail };
+        try {
+            Tip.findOne({ where: { id: _id } }).then((_tip) => {
+                if (!_tip) {
+                    console.log('No Tips found');
+                }
+                console.log(`retrived tip ${JSON.stringify(_tip, null, 2)}`);
+                Tip.update(values, { where: { id: _id }, returning: true, plain: true })
+                    .then((updatedTip) => {
+                        res.json(updatedTip);
+                        // console.log(updatedTip);
+                    })
+                    .catch((err) => {
+                        // next(err);
+                        res.json('Could not update the tip');
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            res.status(400).json({
+                status: 400,
+                error,
+            });
+        }
     },
 };
 module.exports = TipsController;

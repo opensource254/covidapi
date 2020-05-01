@@ -63,3 +63,8 @@ typings/
 /build
 #backup sql files
 backup_db.sql
+#sequelize files
+migrations/
+seeders/
+#vscode
+.vscode
