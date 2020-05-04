@@ -63,6 +63,7 @@ typings/
 /build
 #backup sql files
 backup_db.sql
+test_covid.sql
 #sequelize files
 /models/
 migrations/
