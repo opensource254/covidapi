@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/opensource254/covidapi.git"
+    "url": "git+ssh://git@github.com/opensource254/covidapi.git"
   },
   "author": "Opensource254",
   "license": "UNLICENSED",
-  "homepage": "https://bitbucket.org/opensource254/covidapi#readme",
+  "homepage": "https://github.com/opensource254/covidapi#readme",
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-asserttype": "^1.0.5",
