@@ -18,7 +18,7 @@ const Alert = db.define(
     }
 );
 
-Alert.sync()
+Alert.sync({ alter: true })
     .then(() => console.log('Alert table created succesfully'))
     // eslint-disable-next-line no-unused-vars
     .catch((err) => console.log('Unable to create the alert table'));

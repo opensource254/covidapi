@@ -9,11 +9,11 @@ const Hospital = db.define(
             allowNull: false,
         },
         lat: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
             allowNull: false,
         },
         lon: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.FLOAT,
             allowNull: false,
         },
         description: {
@@ -30,7 +30,7 @@ const Hospital = db.define(
     }
 );
 
-Hospital.sync()
+Hospital.sync({ alter: true })
     .then(() => console.log('Hospitals table created succesfully'))
     .catch((err) => console.log('Unable to create the hospitals table'));
 

@@ -21,7 +21,7 @@ const Tip = db.define(
     }
 );
 
-Tip.sync()
+Tip.sync({ alter: true })
     .then(() => console.log('Tips table created succesfully'))
     // eslint-disable-next-line no-unused-vars
     .catch((err) => console.log('Unable to create the tips table'));
