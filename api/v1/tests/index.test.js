@@ -109,3 +109,35 @@ describe('/POST Alert', () => {
             });
     });
 });
+describe('/GET Hopspitals', () => {
+    it('It should GET Alerts', (done) => {
+        chai.request(server)
+            .get('/api/v1/hospitals')
+            .end((err, result) => {
+                result.should.have.status(200);
+                done(err);
+            });
+    });
+});
+describe('/POST hospital', () => {
+    it('It should POST alert', (done) => {
+        let values = {
+            title: 'Test title',
+            lat: 60,
+            lon: 60,
+            description: 'test description',
+            open: true,
+        };
+        chai.request(server)
+            .post('/api/v1/hospital')
+            .send(values)
+            .end((err, result) => {
+                result.should.have.status(200);
+                result.body.should.be.a('object');
+                // should(result.body.values).have.property('title');
+                // result.body.values.should.have.property('detail');
+                // result.body.values.should.have.property('thumbnail');
+                done();
+            });
+    });
+});
