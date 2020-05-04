@@ -4,6 +4,7 @@ require('chai/register-should');
 const server = require('../../../app');
 const Tip = require('../models/tipsModel');
 const Alert = require('../models/alertModel');
+const { expect } = require('chai');
 
 chai.use(chaiHttp);
 
@@ -100,17 +101,19 @@ describe('/POST Alert', () => {
             .post('/api/v1/alert')
             .send(values)
             .end((err, result) => {
+                console.log(result);
                 result.should.have.status(201);
                 result.body.should.be.a('object');
-                // should(result.body.values).have.property('title');
+                //expect(result).to.have.values.;
+                // result.body.values.should.have.property('title');
                 // result.body.values.should.have.property('detail');
                 // result.body.values.should.have.property('thumbnail');
                 done();
             });
     });
 });
-describe('/GET Hopspitals', () => {
-    it('It should GET Alerts', (done) => {
+describe('/GET Hospitals', () => {
+    it('It should GET hospitals', (done) => {
         chai.request(server)
             .get('/api/v1/hospitals')
             .end((err, result) => {
@@ -120,7 +123,7 @@ describe('/GET Hopspitals', () => {
     });
 });
 describe('/POST hospital', () => {
-    it('It should POST alert', (done) => {
+    it('It should POST hospital', (done) => {
         let values = {
             title: 'Test title',
             lat: 60,
