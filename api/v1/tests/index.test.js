@@ -5,6 +5,7 @@ const server = require('../../../app');
 const Tip = require('../models/tipsModel');
 const Alert = require('../models/alertModel');
 const { expect } = require('chai');
+const Hospital = require('../models/hospModel');
 
 chai.use(chaiHttp);
 
@@ -75,43 +76,48 @@ describe('/GET Tip', () => {
 });
 
 // Alerts
-describe('Alert', () => {
+describe('Alerts', () => {
     beforeEach((done) => {
         Alert.remove({}, (err) => {
             done(err);
         });
     });
 });
-describe('/POST Alert', () => {
+describe('/GET alerts', () => {
+    it('It should GET alerts', (done) => {
+        chai.request(server)
+            .get('/api/v1/alerts')
+            .end((err, result) => {
+                result.should.have.status(200);
+                done(err);
+            });
+    });
+});
+describe('/POST alert', () => {
     it('It should POST alert', (done) => {
-        const values = {
+        let values = {
             title: 'Test title',
-            time: 'Test time',
             detail: 'Test detail',
         };
         chai.request(server)
             .post('/api/v1/alert')
             .send(values)
             .end((err, result) => {
-                console.log(result);
                 result.should.have.status(201);
-                result.body.should.be
-                    .a('object')
-                    .and.have.a.property('data')
-                    .which.should.be.a('object');
-                // result.body.should.be.a('object');
-                //expect(result).to.have.values.;
-                // result.body.values.should.have.property('title');
-                // result.body.values.should.have.property('detail');
-                // result.body.values.should.have.property('thumbnail');
+                result.body.should.be.a('object');
                 done();
             });
     });
 });
-describe('/GET Alerts', () => {
-    it('It should GET Alerts', (done) => {
-        chai.request(server)
-            .get('/api/v1/alerts')
+
+// Hospitals tests
+describe('Hospitals', () => {
+    beforeEach((done) => {
+        Hospital.remove({}, (err) => {
+            done(err);
+        });
+    });
+});
 describe('/GET Hospitals', () => {
     it('It should GET hospitals', (done) => {
         chai.request(server)
@@ -137,9 +143,6 @@ describe('/POST hospital', () => {
             .end((err, result) => {
                 result.should.have.status(200);
                 result.body.should.be.a('object');
-                // should(result.body.values).have.property('title');
-                // result.body.values.should.have.property('detail');
-                // result.body.values.should.have.property('thumbnail');
                 done();
             });
     });
