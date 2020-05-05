@@ -7,7 +7,7 @@
     "test": "nyc --reporter=lcov --reporter=text --reporter=html mocha ./api/v1/tests/*.test.js --recursive --exit",
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "fetch": "nodemon ./api/v1/controllers/newsController.js"
+    "fetch": "node ./api/v1/controllers/saveTweets.js"
   },
   "repository": {
     "type": "git",
