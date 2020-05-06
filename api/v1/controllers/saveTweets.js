@@ -10,7 +10,7 @@ const NewsModel = require('../models/newsModel');
             res.data.map((obj) => {
                 const news = new NewsModel({
                     text: obj.text,
-                    timestamp: new Date(obj.timestamp).toLocaleDateString('en-US', {
+                    timestamp: new Date(obj.timestamp).toLocaleDateString('en-KE', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
