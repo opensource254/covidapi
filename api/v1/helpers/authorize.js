@@ -6,7 +6,7 @@ const secret = process.env.SECRET;
 
 function authorize(roles = []) {
     // roles param can be a single role string (e.g. Role.User or 'User')
-    // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
+    // or an array of roles (e.g. [Role.Admin, Role.User, Role.Doctor] or ['Admin', 'User', 'Doctor'])
     if (typeof roles === 'string') {
         roles = [roles];
     }
