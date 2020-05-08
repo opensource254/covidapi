@@ -11,7 +11,7 @@ const HospController = require('../controllers/hospController');
 router.get('/api/v1/tweets', NewsController.getTweets);
 
 // User routes
-router.post('/api/v1/signup', UsersController.signup);
+router.post('/api/v1/auth/signup/user', UsersController.signup);
 
 // Routes for all the tips here
 router.post('/api/v1/tip', authorize(Roles.Admin, Roles.Doctor), TipsController.create);
