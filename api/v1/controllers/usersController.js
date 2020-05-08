@@ -1,4 +1,4 @@
-﻿const Role = require('../helpers/role');
+const Role = require('../helpers/role');
 const userService = require('./user.service');
 const User = require('../models/0-usersModel');
 
@@ -9,7 +9,7 @@ const userMethods = {
             const user = await User.create({ firstname, lastname, email, password, location });
             user.save()
                 .then((userparam) => {
-                    return res.json({ status: 201, data: userparam });
+                    return res.status(201).json({ status: 201, data: userparam });
                 })
                 .catch((err) => {
                     console.log('Couldnt create a user');
