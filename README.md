@@ -5,22 +5,34 @@
 
 # Covid API
 
->Kenyan Api for covid-19 app by opensource 254
+> Kenyan Api for covid-19 app by opensource 254
 
 ## Available endpoints
 
-| Request | Endpoint              | Function                |
-| ------- | --------------------- | ----------------------- |
-| POST    | `/api/v1/tip`         | Create a new tip        |
-| GET     | `/api/v1/tips`        | Get all tips            |
-| GET     | `/api/v1/tip/:id`     | Get a tip               |
-| PUT     | `/api/v1/tip/:id`     | Update a tip            |
-| POST    | `/api/v1/alert`       | Create a new alert      | 
-| GET     | `/api/v1/alerts`      | Get all alerts          |
-| GET     | `/api/v1/alert/:id`   | Get an alert            |
-| PUT     | `/api/v1/alert/:id`   | Update an alert         |
-| POST    | `/api/v1/hospital`    | Create a new hospital   | 
-| GET     | `/api/v1/hospitals`      | Get all hospitals       |
-| GET     | `/api/v1/hospital/:id`   | Get a hospital          |
-| PUT     | `/api/v1/hospital/:id`   | Update a hospital       |
-| GET     | `/api/v1/tweets`      | Get all tweets          |
+# Resource endpoints
+
+| Request | Endpoint               | Function              | Authorized users    |
+| ------- | ---------------------- | --------------------- | ------------------- |
+| POST    | `/api/v1/tip`          | Create a new tip      | Admin, Doctor       |
+| GET     | `/api/v1/tips`         | Get all tips          | Admin, Doctor, User |
+| GET     | `/api/v1/tip/:id`      | Get a tip             | Admin, Doctor, User |
+| PUT     | `/api/v1/tip/:id`      | Update a tip          | Admin, Doctor       |
+| POST    | `/api/v1/alert`        | Create a new alert    | Admin               |
+| GET     | `/api/v1/alerts`       | Get all alerts        | Admin, Doctor, User |
+| GET     | `/api/v1/alert/:id`    | Get an alert          | Admin, Doctor, User |
+| PUT     | `/api/v1/alert/:id`    | Update an alert       | Admin               |
+| POST    | `/api/v1/hospital`     | Create a new hospital | Admin, Doctor       |
+| GET     | `/api/v1/hospitals`    | Get all hospitals     | Admin, Doctor, User |
+| GET     | `/api/v1/hospital/:id` | Get a hospital        | Admin, Doctor, User |
+| PUT     | `/api/v1/hospital/:id` | Update a hospital     | Admin, Doctor       |
+| GET     | `/api/v1/tweets`       | Get all tweets        | Everyone            |
+
+# Auth endpoints
+
+| Request | Endpoint                     | Function                             |
+| ------- | ---------------------------- | ------------------------------------ |
+| POST    | `/api/v1/auth/signup/user`   | create a new user                    |
+| POST    | `/api/v1/auth/signup/admin`  | create a new admin                   |
+| POST    | `/api/v1/auth/signup/doctor` | create a new doctor                  |
+| POST    | `/api/v1/auth/login`         | Login a user according to their role |
+| POST    | `/api/v1/auth/logout`        | Logout a user                        |
