@@ -41,16 +41,23 @@ const User = db.define(
                 user.password = await bcrypt.hashSync(user.password, salt);
             },
         },
-        // instanceMethods: {
-        //     async validPassword(password) {
-        //         return bcrypt.compareSync(password, this.password);
-        //     },
-        // },
     },
     {
         freezeTableName: true,
     }
 );
+User.checkCredentials = async function (email, password) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+        throw new Error('The user with that email does not exist, signup first');
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        throw new Error('Wrong email/password combination');
+    }
+
+    return user;
+};
 
 User.sync({ alter: true })
     .then(() => console.log(colors.green('Users table created succesfully')))
