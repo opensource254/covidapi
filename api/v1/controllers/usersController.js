@@ -1,6 +1,9 @@
+﻿/* eslint-disable no-shadow */
+const jwt = require('jsonwebtoken');
 const Role = require('../helpers/role');
 const userService = require('./user.service');
 const User = require('../models/0-usersModel');
+require('dotenv').config();
 
 const userMethods = {
     async signup(req, res) {
@@ -18,6 +21,24 @@ const userMethods = {
         } catch (error) {
             console.error(error);
             res.json(error);
+        }
+    },
+    async login(req, res) {
+        try {
+            const user = await User.checkCredentials(req.body.email, req.body.password);
+            const token = jwt.sign({ sub: User.id, role: User.role }, process.env.SECRET);
+            if (user) {
+                return res.status(200).json({
+                    status: 200,
+                    user,
+                    token,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(400).json({
+                error: error.message,
+            });
         }
     },
 };
