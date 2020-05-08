@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
@@ -25,6 +27,24 @@ const User = db.define(
             type: Sequelize.STRING,
             allowNull: true,
         },
+        role: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue: 'user',
+        },
+    },
+    {
+        hooks: {
+            async beforeCreate(user) {
+                const salt = await bcrypt.genSaltSync();
+                user.password = await bcrypt.hashSync(user.password, salt);
+            },
+        },
+        // instanceMethods: {
+        //     async validPassword(password) {
+        //         return bcrypt.compareSync(password, this.password);
+        //     },
+        // },
     },
     {
         freezeTableName: true,
@@ -32,7 +52,7 @@ const User = db.define(
 );
 
 User.sync({ alter: true })
-    .then(() => console.log('Users table created succesfully'))
-    .catch((err) => console.log('Unable to create the users table', err));
+    .then(() => console.log(colors.green('Users table created succesfully')))
+    .catch((err) => console.log(colors.red('Unable to create the users table', err)));
 
 module.exports = User;
