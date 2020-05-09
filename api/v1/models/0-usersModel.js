@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
@@ -24,6 +25,10 @@ const User = db.define(
             allowNull: false,
         },
         location: {
+            type: Sequelize.STRING,
+            allowNull: true,
+        },
+        token: {
             type: Sequelize.STRING,
             allowNull: true,
         },
@@ -57,6 +62,14 @@ User.checkCredentials = async function (email, password) {
     }
 
     return user;
+};
+User.generateToken = async function (email) {
+    const user = await User.findOne({ where: { email } });
+    // return console.log(user.id);
+    const tokenField = user.token;
+    const gentoken = jwt.sign({ id: user.id.toString(), role: user.role }, process.env.SECRET);
+    user.update(gentoken, { where: { token: tokenField } });
+    return gentoken;
 };
 
 User.sync({ alter: true })
