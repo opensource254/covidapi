@@ -27,7 +27,6 @@ const userMethods = {
     async login(req, res) {
         try {
             const user = await User.checkCredentials(req.body.email, req.body.password);
-            console.log(req.body);
             const token = await User.generateToken(req.body.email); // jwt.sign({ id: User.id, role: User.role }, process.env.SECRET);
             if (user) {
                 return res.status(200).json({

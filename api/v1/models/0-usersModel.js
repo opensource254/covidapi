@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
-const { UUIDV4 } = require('../db/index');
 
 const User = db.define(
     'users',
@@ -37,11 +36,6 @@ const User = db.define(
             type: Sequelize.STRING,
             allowNull: false,
             defaultValue: 'user',
-        },
-        _id: {
-            type: Sequelize.UUID,
-            defaultValue: UUIDV4,
-            allowNull: false,
         },
     },
     {
@@ -78,7 +72,7 @@ User.generateToken = async function (email) {
     return gentoken;
 };
 
-User.sync({ force: true })
+User.sync({ alter: true })
     .then(() => console.log(colors.green('Users table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the users table', err)));
 

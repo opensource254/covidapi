@@ -20,7 +20,7 @@ router.post('/api/v1/auth/login', UsersController.login);
 router.post(
     '/api/v1/tip',
     AuthMiddleware,
-    authorize(Roles.Admin, Roles.Doctor),
+    // authorize(Roles.Admin, Roles.Doctor),
     TipsController.create
 );
 router.get('/api/v1/tips', TipsController.getAll);

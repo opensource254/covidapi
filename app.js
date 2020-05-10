@@ -12,8 +12,9 @@ app.use(express.json());
 
 app.use(routes);
 app.use(logger('dev'));
-/*
-*disabled for develement 
+app.use(errHandler.errHandler);
+/* disabled for development
+It interferes with err handling
 app.use('/', function (req, res) {
     return res.status(200).json({
         status: 200,
@@ -25,15 +26,14 @@ app.use('/', function (req, res) {
 app.use(function (req, res, next) {
     next(createError(404));
 });
-app.use(errHandler.errHandler);
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.json({
-            message: err,
+        res.json('error', {
+            message: err.message,
             error: err,
         });
     });

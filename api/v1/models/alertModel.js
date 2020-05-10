@@ -19,7 +19,7 @@ const Alert = db.define(
     }
 );
 
-Alert.sync({ force: true })
+Alert.sync({ alter: true })
     .then(() => console.log(colors.green('Alert table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the alert table', err)));
 
