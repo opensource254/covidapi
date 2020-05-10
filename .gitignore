@@ -66,7 +66,7 @@ backup_db.sql
 test_covid.sql
 #sequelize files
 config/config.json
-models/
+#models/
 migrations/
 seeders/
 #vscode

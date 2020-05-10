@@ -1,3 +1,4 @@
+const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
@@ -31,7 +32,7 @@ const Hospital = db.define(
 );
 
 Hospital.sync({ alter: true })
-    .then(() => console.log('Hospitals table created succesfully'))
-    .catch((err) => console.log('Unable to create the hospitals table'));
+    .then(() => console.log(colors.green('Hospitals table created succesfully')))
+    .catch((err) => console.log(colors.red('Unable to create the hospitals table', err)));
 
 module.exports = Hospital;

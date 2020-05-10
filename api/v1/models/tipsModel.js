@@ -1,3 +1,4 @@
+const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
@@ -22,8 +23,7 @@ const Tip = db.define(
 );
 
 Tip.sync({ alter: true })
-    .then(() => console.log('Tips table created succesfully'))
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => console.log('Unable to create the tips table'));
+    .then(() => console.log(colors.green('Tips table created succesfully')))
+    .catch((err) => console.log(colors.red('Unable to create the tips table', err)));
 
 module.exports = Tip;

@@ -1,3 +1,4 @@
+const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
@@ -19,8 +20,7 @@ const Alert = db.define(
 );
 
 Alert.sync({ alter: true })
-    .then(() => console.log('Alert table created succesfully'))
-    // eslint-disable-next-line no-unused-vars
-    .catch((err) => console.log('Unable to create the alert table'));
+    .then(() => console.log(colors.green('Alert table created succesfully')))
+    .catch((err) => console.log(colors.red('Unable to create the alert table', err)));
 
 module.exports = Alert;
