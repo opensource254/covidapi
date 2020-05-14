@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.SECRET);
 
-        const user = await User.findOne({ where: { id: decoded.id, token } });
+        const user = await User.findOne({ where: { id: decoded.id } });
 
         if (!user) {
             throw new Error('User not found');
