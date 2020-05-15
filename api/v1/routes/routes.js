@@ -7,6 +7,7 @@ const TipsController = require('../controllers/tipsController');
 const AlertsController = require('../controllers/alertController');
 const NewsController = require('../controllers/newsController');
 const HospController = require('../controllers/hospController');
+const countyController = require('../controllers/countiesController');
 
 // Fetch all news
 router.get('/api/v1/tweets', NewsController.getTweets);
@@ -41,5 +42,8 @@ router.put(
     '/api/v1/hospital/:id',
     /* authorize(Roles.Admin, Roles.Doctor), */ HospController.updateHosp
 );
-
+// covid cases api
+router.post('/api/v1/county_case', authorize(Roles.User), countyController.create);
+router.get('/api/v1/counties', countyController.getAll);
+router.get('/api/v1/county/:id', countyController.getOne);
 module.exports = router;
