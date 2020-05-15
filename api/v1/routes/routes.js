@@ -29,7 +29,7 @@ router.put('/api/v1/tip/:id', TipsController.updateTip);
 router.get('/api/v1/tip/:id', TipsController.getOne);
 
 // Routes for the alerts
-router.post('/api/v1/alert', authorize(Roles.User), AlertsController.create);
+router.post('/api/v1/alert',/* authorize(Roles.User), */ AlertsController.create);
 router.get('/api/v1/alerts', AlertsController.getAll);
 router.put('/api/v1/alert/:id', /* authorize(Roles.Admin), */ AlertsController.updateAlert);
 router.get('/api/v1/alert/:id', AlertsController.getOne);
@@ -43,7 +43,7 @@ router.put(
     /* authorize(Roles.Admin, Roles.Doctor), */ HospController.updateHosp
 );
 // covid cases api
-router.post('/api/v1/county_case', authorize(Roles.User), countyController.create);
+router.post('/api/v1/county_case', /* authorize(Roles.User),*/ countyController.create);
 router.get('/api/v1/counties', countyController.getAll);
 router.get('/api/v1/county/:id', countyController.getOne);
 module.exports = router;
