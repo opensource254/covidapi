@@ -37,7 +37,7 @@ const County = db.define(
     }
 );
 
-County.sync({ force: true })
+County.sync({ alter: true })
     .then(() => console.log(colors.green('county cases table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the county cases table', err)));
 
