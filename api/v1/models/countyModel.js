@@ -2,7 +2,7 @@ const colors = require('colors');
 const db = require('../db/db');
 const Sequelize = require('../db/index');
 
-const Tip = db.define(
+const County = db.define(
     'counties',
     {
         county: {
@@ -37,8 +37,8 @@ const Tip = db.define(
     }
 );
 
-Tip.sync({ force: true })
+County.sync({ force: true })
     .then(() => console.log(colors.green('county cases table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the county cases table', err)));
 
-module.exports = Tip;
+module.exports = County;
