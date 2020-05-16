@@ -1,0 +1,28 @@
+language: node_js
+
+cache: false
+
+node_js:
+    - 'lts/*'
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=82bbf00438c2432678893f158ac97d0cfc892860b02f7b51ef0814ea7ad43d2c
+
+
+services:
+  - postgresql
+
+addons:
+  code_climate:
+    repo_token: 82bbf00438c2432678893f158ac97d0cfc892860b02f7b51ef0814ea7ad43d2c
+
+
+before_script:
+  - psql -c 'create database covid_test' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

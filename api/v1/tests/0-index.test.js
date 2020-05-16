@@ -32,3 +32,5 @@ describe('APPLICATION REQUESTS', () => {
             });
     });
 });
+
+/** Tests for the CRUD methods */
