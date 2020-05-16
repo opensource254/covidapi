@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors')
 const createError = require('http-errors');
 const routes = require('./api/v1/routes/routes');
 const errHandler = require('./api/v1/middleware/errHandler');
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use(routes);
 app.use(logger('dev'));
+app.use(cors())
 app.use(errHandler.errHandler);
 /* disabled for development
 It interferes with err handling
