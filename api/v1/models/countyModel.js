@@ -5,6 +5,17 @@ const Sequelize = require('../db/index');
 const County = db.define(
     'counties',
     {
+        county_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate: {
+                notNull: {
+                    msg: 'Please enter ther county id between 1 - 47',
+                },
+                max: 48,
+                min: 1,
+            },
+        },
         county: {
             type: Sequelize.STRING,
             allowNull: false,
