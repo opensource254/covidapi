@@ -1,29 +1,32 @@
 const County = require('../models/countyModel');
+const { Sequelize } = require('../db');
 
 const countyController = {
     async create(req, res) {
-        /* this involves use of postGIS it will be revisited soon
+        // eslint-disable-next-line camelcase
+        const { county_id, county, cases, recoveries, tests, deaths } = req.body;
+        // this involves use of postGIS it will be revisited soon
         const point = {
-            type: point,
+            type: 'Point',
             coordinates: [req.body.lat, req.body.lon],
         };
-        */
-        const { county, cases, recoveries, tests, deaths, lat, lon } = req.body;
+
         const con = await County.create({
+            county_id,
             county,
             cases,
             recoveries,
             tests,
             deaths,
-            lat,
-            lon,
-            // geometry: point,
+            // lat,
+            // lon,
+            position: point,
         });
         con.save()
             .then((_county) => {
                 return res.json({ status: 201, data: [_county] });
             })
-            .catch((err) => {
+            .catch(Sequelize.ValidationError, (err) => {
                 console.log('Couldnt create a county case');
                 res.json(err);
             });
