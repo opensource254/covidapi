@@ -22,15 +22,15 @@ const County = db.define(
         deaths: {
             type: Sequelize.INTEGER,
         },
-        // position: {
-        //    type: Sequelize.GEOMETRY('Point'),
-        // },
-        lat: {
+        position: {
+            type: Sequelize.GEOMETRY('Point'),
+        },
+        /* lat: {
             type: Sequelize.INTEGER,
         },
         lon: {
             type: Sequelize.INTEGER,
-        },
+        }, */
     },
     {
         freezeTableName: true,

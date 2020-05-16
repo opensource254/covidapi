@@ -2,22 +2,22 @@ const County = require('../models/countyModel');
 
 const countyController = {
     async create(req, res) {
-        /* this involves use of postGIS it will be revisited soon
+        const { county, cases, recoveries, tests, deaths } = req.body;
+        // this involves use of postGIS it will be revisited soon
         const point = {
-            type: point,
+            type: 'Point',
             coordinates: [req.body.lat, req.body.lon],
         };
-        */
-        const { county, cases, recoveries, tests, deaths, lat, lon } = req.body;
+
         const con = await County.create({
             county,
             cases,
             recoveries,
             tests,
             deaths,
-            lat,
-            lon,
-            // geometry: point,
+            // lat,
+            // lon,
+            position: point,
         });
         con.save()
             .then((_county) => {
