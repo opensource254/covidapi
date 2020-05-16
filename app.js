@@ -24,19 +24,19 @@ app.use('/', function (req, res) {
 */
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    next(res.json(createError(404)));
+    next(createError(404));
 });
 
 // Invalid status code error - @wilcox have a look at it and provide a fix
 // development error handler
 // will print stacktrace
-// if (app.get('env') === 'development') {
-//     app.use(function (err, req, res, next) {
-//         res.status(err.status || 500).json('error', {
-//             message: err.message,
-//             error: err,
-//         });
-//     });
-// }
+if (app.get('env') === 'development') {
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500).json({
+            status: err.status,
+            message: err.message,
+        });
+    });
+}
 
 module.exports = app;

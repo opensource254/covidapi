@@ -43,7 +43,7 @@ router.put(
     /* authorize(Roles.Admin, Roles.Doctor), */ HospController.updateHosp
 );
 // covid cases api
-router.post('/api/v1/county_case', /* authorize(Roles.User),*/ countyController.create);
+router.post('/api/v1/county_case', /* authorize(Roles.User), */ countyController.create);
 router.get('/api/v1/counties', countyController.getAll);
 router.get('/api/v1/county/:id', countyController.getOne);
 module.exports = router;

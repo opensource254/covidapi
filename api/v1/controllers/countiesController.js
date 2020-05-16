@@ -32,7 +32,7 @@ const countyController = {
         await County.findAll()
             .then((county) => {
                 if (!county) {
-                    res.json('No hospitals found');
+                    res.json('No conty cases found');
                 }
                 res.status(200).json({
                     status: 200,
@@ -55,7 +55,7 @@ const countyController = {
         })
             .then((con) => {
                 if (!con) {
-                    res.json('No hospital was found');
+                    res.json('No county cases was found');
                 } else {
                     console.log(`retrived county case ${JSON.stringify(con, null, 2)}`);
                     res.json(con);
