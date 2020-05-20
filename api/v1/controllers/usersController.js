@@ -1,8 +1,4 @@
-﻿/* eslint-disable no-shadow */
-const jwt = require('jsonwebtoken');
-const Role = require('../helpers/role');
-const userService = require('./user.service');
-const User = require('../models/0-usersModel');
+﻿const User = require('../models/0-usersModel');
 require('dotenv').config();
 
 const userMethods = {
