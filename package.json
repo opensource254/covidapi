@@ -41,6 +41,7 @@
         "bcrypt": "^4.0.1",
         "bookshelf": "^1.1.1",
         "connect-session-sequelize": "^6.1.1",
+        "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
         "cross-env": "^7.0.2",
         "dotenv": "^8.2.0",

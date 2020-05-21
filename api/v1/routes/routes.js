@@ -8,10 +8,10 @@ const AlertsController = require('../controllers/alertController');
 const NewsController = require('../controllers/newsController');
 const HospController = require('../controllers/hospController');
 const countyController = require('../controllers/countiesController');
-const { IsAuth } = require('../middleware/isauth');
+const { IsLoggedin } = require('../middleware/isauth');
 
 // Routes for authenticated  user
-router.get('/api/v1/home', AuthMiddleware, (req, res) => {
+router.get('/api/v1/home', IsLoggedin, (req, res) => {
     /* if (req.session.userId) {
         res.send(req.session);
         console.log('we are logged in');
@@ -23,8 +23,7 @@ router.get('/api/v1/home', AuthMiddleware, (req, res) => {
 });
 
 // logout
-router.post('/logout', (req, res) => {
-    req.logout();
+router.get('/api/v1/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/');
 });

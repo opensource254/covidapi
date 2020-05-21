@@ -3,14 +3,14 @@ const db = require('../db/db');
 const Sequelize = require('../db/index');
 
 const Sessions = db.define(
-    'Sessions',
+    'sesses',
     {
         sid: {
             type: Sequelize.STRING,
             primaryKey: true,
         },
         userId: {
-            type: Sequelize.STRING,
+            type: Sequelize.JSON,
         },
         expire: {
             type: Sequelize.DATE,

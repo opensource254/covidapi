@@ -1,9 +1,9 @@
-const User = require('../models/0-usersModel');
 
 module.exports = {
-    IsAuth: (err, req, res, next) => {
-        User.findOne({ where: { id: req.session.userId } }).then((error, user) => {
-            
-        });
+    IsLoggedin: (req, res, next) => {
+        if (req.session.isLoggedin===true) {
+            return next();
+        }
+        res.json({ message: 'You are not logged in' });
     },
 };
