@@ -60,7 +60,6 @@ User.checkCredentials = async function (email, password) {
     if (!isMatch) {
         throw new Error('Wrong email/password combination');
     }
-
     return user;
 };
 User.generateToken = async function (email) {

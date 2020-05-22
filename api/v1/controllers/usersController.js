@@ -24,11 +24,14 @@ const userMethods = {
             res.json(error);
         }
     },
-    async login(req, res) {
+    async login(req, res,next) {
         try {
             const user = await User.checkCredentials(req.body.email, req.body.password);
             const token = await User.generateToken(req.body.email); // jwt.sign({ id: User.id, role: User.role }, process.env.SECRET);
             if (user) {
+                req.session.user = user.dataValues;
+                req.session.isLoggedin = true;
+                console.log(req.session);
                 return res.status(200).json({
                     status: 200,
                     user,

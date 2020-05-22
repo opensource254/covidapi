@@ -1,19 +1,51 @@
 require('dotenv').config();
 const express = require('express');
 const logger = require('morgan');
-const cors = require('cors')
+const cors = require('cors');
+const session = require('express-session');
 const createError = require('http-errors');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const routes = require('./api/v1/routes/routes');
 const errHandler = require('./api/v1/middleware/errHandler');
+const db = require('./api/v1/db');
+const database = require('./api/v1/db/db');
+const Sequelize = require('./api/v1/db/index');
+
 require('./api/v1/db/mongodb');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(routes);
+const Session = database.define('Session', {
+    sid: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+    },
+    userId: Sequelize.STRING,
+    expires: Sequelize.DATE,
+    data: Sequelize.STRING(50000),
+});
+
+const sessionStore = new SequelizeStore({
+    db: database,
+    table: 'Session',
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 36000,
+});
+
 app.use(logger('dev'));
-app.use(cors())
+app.use(cors());
+app.use(
+    session({
+        secret: 'anything',
+        resave: true,
+        saveUninitialized: true,
+        store: sessionStore,
+        cookie: { maxAge: 60000 },
+    })
+);
+app.use(routes);
 app.use(errHandler.errHandler);
 /* disabled for development
 It interferes with err handling
@@ -41,4 +73,6 @@ if (app.get('env') === 'development') {
     });
 }
 
+sessionStore.sync();
+Session.sync({ force: true });
 module.exports = app;
