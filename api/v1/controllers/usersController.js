@@ -19,11 +19,11 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a user');
-                    res.json(err);
+                    res.status(400).json(err);
                 });
         } catch (error) {
             console.error(error);
-            res.json(error);
+            res.status(500).json(error);
         }
     },
     async docsignup(req, res) {
@@ -43,11 +43,11 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a doctor');
-                    res.json(err);
+                    res.status(400).json(err);
                 });
         } catch (error) {
             console.error(error);
-            res.json(error);
+            res.status(500).json(error);
         }
     },
     async login(req, res, next) {
