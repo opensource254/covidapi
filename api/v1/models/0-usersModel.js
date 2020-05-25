@@ -42,7 +42,6 @@ const User = db.define(
         hooks: {
             async beforeCreate(user) {
                 const salt = await bcrypt.genSaltSync();
-                // eslint-disable-next-line no-param-reassign
                 user.password = await bcrypt.hashSync(user.password, salt);
             },
         },
@@ -64,7 +63,6 @@ User.checkCredentials = async function (email, password) {
 };
 User.generateToken = async function (email) {
     const user = await User.findOne({ where: { email } });
-    // console.log(user);
     const tokenField = user.token;
     const gentoken = jwt.sign({ id: user.id.toString(), role: user.role }, process.env.SECRET);
     user.update(gentoken, { where: { token: tokenField } });

@@ -1,33 +1,59 @@
-﻿/* eslint-disable no-shadow */
-const jwt = require('jsonwebtoken');
-const Role = require('../helpers/role');
-const userService = require('./user.service');
-const User = require('../models/0-usersModel');
+﻿const User = require('../models/0-usersModel');
 require('dotenv').config();
 
 const userMethods = {
     async signup(req, res) {
         try {
             const { firstname, lastname, email, password, location } = req.body;
-            // const token = await User.generateToken(req.body.email);
-            const user = await User.create({ firstname, lastname, email, password, location });
+            const user = await User.create({
+                role: 'admin',
+                firstname,
+                lastname,
+                email,
+                password,
+                location,
+            });
             user.save()
                 .then((userparam) => {
                     return res.status(201).json({ userparam });
                 })
                 .catch((err) => {
                     console.log('Couldnt create a user');
-                    res.json(err);
+                    res.status(400).json(err);
                 });
         } catch (error) {
             console.error(error);
-            res.json(error);
+            res.status(500).json(error);
         }
     },
-    async login(req, res,next) {
+    async docsignup(req, res) {
+        try {
+            const { firstname, lastname, email, password, location } = req.body;
+            const user = await User.create({
+                role: 'doctor',
+                firstname,
+                lastname,
+                email,
+                password,
+                location,
+            });
+            user.save()
+                .then((userparam) => {
+                    return res.status(201).json({ userparam });
+                })
+                .catch((err) => {
+                    console.log('Couldnt create a doctor');
+                    res.status(400).json(err);
+                });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json(error);
+        }
+    },
+    async login(req, res, next) {
         try {
             const user = await User.checkCredentials(req.body.email, req.body.password);
-            const token = await User.generateToken(req.body.email); // jwt.sign({ id: User.id, role: User.role }, process.env.SECRET);
+            const token = await User.generateToken(req.body.email);
             if (user) {
                 req.session.user = user.dataValues;
                 req.session.isLoggedin = true;

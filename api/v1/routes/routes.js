@@ -22,25 +22,29 @@ router.get('/api/v1/home', IsLoggedin, (req, res) => {
     console.log(req.session);
 });
 
-// logout
-router.get('/api/v1/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
-
 // Fetch all news
 router.get('/api/v1/tweets', NewsController.getTweets);
 
 // User routes
-router.post('/api/v1/auth/signup/user', UsersController.signup);
+router.post('/api/v1/auth/signup/admin', UsersController.signup);
+router.post('/api/v1/auth/signup/doctor', UsersController.docsignup);
 router.post('/api/v1/auth/login', UsersController.login);
+// logout a user and destroy the session
+router.post('/api/v1/auth/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/api/v1/loggedout');
+});
+// api redirects to this after a successful logout
+router.get('/api/v1/loggedout', (req, res) => {
+    res.json({ Message: 'You have been logged out' });
+});
 
 // Routes for all the tips here
-// NB: test this on postman to see the 'user not found error'
 router.post(
     '/api/v1/tip',
+    IsLoggedin,
     AuthMiddleware,
-    // authorize(Roles.Admin, Roles.Doctor),
+    authorize(Roles.Admin),
     TipsController.create
 );
 router.get('/api/v1/tips', TipsController.getAll);

@@ -10,6 +10,7 @@ const errHandler = require('./api/v1/middleware/errHandler');
 const db = require('./api/v1/db');
 const database = require('./api/v1/db/db');
 const Sequelize = require('./api/v1/db/index');
+require('dotenv').config();
 
 require('./api/v1/db/mongodb');
 
@@ -38,7 +39,7 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(
     session({
-        secret: 'anything',
+        secret: process.env.SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
         store: sessionStore,
@@ -61,7 +62,7 @@ app.use(function (req, res, next) {
     next(createError(404));
 });
 
-// Invalid status code error - @wilcox have a look at it and provide a fix
+// Invalid status code error
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -74,5 +75,5 @@ if (app.get('env') === 'development') {
 }
 
 sessionStore.sync();
-Session.sync({ force: true });
+Session.sync({ alter: true });
 module.exports = app;
