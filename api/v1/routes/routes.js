@@ -32,7 +32,8 @@ router.get('/api/v1/logout', (req, res) => {
 router.get('/api/v1/tweets', NewsController.getTweets);
 
 // User routes
-router.post('/api/v1/auth/signup/user', UsersController.signup);
+router.post('/api/v1/auth/signup/admin', UsersController.signup);
+router.post('/api/v1/auth/signup/doctor', UsersController.docsignup);
 router.post('/api/v1/auth/login', UsersController.login);
 
 // Routes for all the tips here
