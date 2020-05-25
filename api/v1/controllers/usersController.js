@@ -5,8 +5,14 @@ const userMethods = {
     async signup(req, res) {
         try {
             const { firstname, lastname, email, password, location } = req.body;
-            // const token = await User.generateToken(req.body.email);
-            const user = await User.create({ firstname, lastname, email, password, location });
+            const user = await User.create({
+                role: 'admin',
+                firstname,
+                lastname,
+                email,
+                password,
+                location,
+            });
             user.save()
                 .then((userparam) => {
                     return res.status(201).json({ userparam });
@@ -20,10 +26,34 @@ const userMethods = {
             res.json(error);
         }
     },
-    async login(req, res,next) {
+    async docsignup(req, res) {
+        try {
+            const { firstname, lastname, email, password, location } = req.body;
+            const user = await User.create({
+                role: 'doctor',
+                firstname,
+                lastname,
+                email,
+                password,
+                location,
+            });
+            user.save()
+                .then((userparam) => {
+                    return res.status(201).json({ userparam });
+                })
+                .catch((err) => {
+                    console.log('Couldnt create a doctor');
+                    res.json(err);
+                });
+        } catch (error) {
+            console.error(error);
+            res.json(error);
+        }
+    },
+    async login(req, res, next) {
         try {
             const user = await User.checkCredentials(req.body.email, req.body.password);
-            const token = await User.generateToken(req.body.email); // jwt.sign({ id: User.id, role: User.role }, process.env.SECRET);
+            const token = await User.generateToken(req.body.email);
             if (user) {
                 req.session.user = user.dataValues;
                 req.session.isLoggedin = true;
