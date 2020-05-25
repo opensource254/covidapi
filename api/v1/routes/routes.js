@@ -8,6 +8,25 @@ const AlertsController = require('../controllers/alertController');
 const NewsController = require('../controllers/newsController');
 const HospController = require('../controllers/hospController');
 const countyController = require('../controllers/countiesController');
+const { IsLoggedin } = require('../middleware/isauth');
+
+// Routes for authenticated  user
+router.get('/api/v1/home', IsLoggedin, (req, res) => {
+    /* if (req.session.userId) {
+        res.send(req.session);
+        console.log('we are logged in');
+    } else {
+        console.log('backup');
+    } */
+    res.send(req.session);
+    console.log(req.session);
+});
+
+// logout
+router.get('/api/v1/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 // Fetch all news
 router.get('/api/v1/tweets', NewsController.getTweets);
@@ -29,7 +48,7 @@ router.put('/api/v1/tip/:id', TipsController.updateTip);
 router.get('/api/v1/tip/:id', TipsController.getOne);
 
 // Routes for the alerts
-router.post('/api/v1/alert',/* authorize(Roles.User), */ AlertsController.create);
+router.post('/api/v1/alert', /* authorize(Roles.User), */ AlertsController.create);
 router.get('/api/v1/alerts', AlertsController.getAll);
 router.put('/api/v1/alert/:id', /* authorize(Roles.Admin), */ AlertsController.updateAlert);
 router.get('/api/v1/alert/:id', AlertsController.getOne);
