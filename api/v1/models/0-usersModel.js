@@ -42,7 +42,6 @@ const User = db.define(
         hooks: {
             async beforeCreate(user) {
                 const salt = await bcrypt.genSaltSync();
-                // eslint-disable-next-line no-param-reassign
                 user.password = await bcrypt.hashSync(user.password, salt);
             },
         },
@@ -60,12 +59,10 @@ User.checkCredentials = async function (email, password) {
     if (!isMatch) {
         throw new Error('Wrong email/password combination');
     }
-
     return user;
 };
 User.generateToken = async function (email) {
     const user = await User.findOne({ where: { email } });
-    // return console.log(user.id);
     const tokenField = user.token;
     const gentoken = jwt.sign({ id: user.id.toString(), role: user.role }, process.env.SECRET);
     user.update(gentoken, { where: { token: tokenField } });

@@ -8,7 +8,7 @@ const auth = async (req, res, next) => {
 
         const decoded = jwt.verify(token, process.env.SECRET);
 
-        const user = await User.findOne({ where: { id: decoded.id, token } });
+        const user = await User.findOne({ where: { id: decoded.id } });
 
         if (!user) {
             throw new Error('User not found');
@@ -19,8 +19,10 @@ const auth = async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
-        res.status(401).json({ err: 'Please authenticate!', ERROR: error.message });
+        res.status(401).json({
+            err: 'Please authenticate!',
+            ERROR: error.message,
+        });
     }
 };
-
 module.exports = auth;
