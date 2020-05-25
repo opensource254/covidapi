@@ -40,11 +40,11 @@ router.get('/api/v1/loggedout', (req, res) => {
 });
 
 // Routes for all the tips here
-// NB: test this on postman to see the 'user not found error'
 router.post(
     '/api/v1/tip',
+    IsLoggedin,
     AuthMiddleware,
-    // authorize(Roles.Admin, Roles.Doctor),
+    authorize(Roles.Admin),
     TipsController.create
 );
 router.get('/api/v1/tips', TipsController.getAll);
