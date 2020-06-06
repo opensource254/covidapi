@@ -1,19 +1,19 @@
 /* eslint-disable no-sequences */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable camelcase */
-require('../db/mongodb');
 const axios = require('axios');
-const NewsModel = require('../models/newsModel');
+// const NewsModel = require('../models/newsModel');
 
 class Tweets {
     constructor(text, timestamp, timestamp_relative, username, screen_name, img_urls) {
-        this.text = text,
-            this.timestamp = timestamp,
-            this.timestamp_relative = timestamp_relative,
-            this.username = username,
-            this.screen_name = screen_name,
-            this.img_urls = img_urls
+        (this.text = text),
+            (this.timestamp = timestamp),
+            (this.timestamp_relative = timestamp_relative),
+            (this.username = username),
+            (this.screen_name = screen_name),
+            (this.img_urls = img_urls);
     }
-};
+}
 
 const News = {
     async getTweets(req, res) {
@@ -21,8 +21,8 @@ const News = {
         const allTweets = tweets.data;
         try {
             // const news = await NewsModel.find({});
-            const filtered_tweets = allTweets.map((obj) => {
-                const sortedTweets = new Tweets({
+            const news = allTweets.map((obj) => {
+                return new Tweets({
                     text: obj.tweet,
                     timestamp: obj.created_at,
                     timestamp_relative: obj.relative_time,
@@ -31,9 +31,8 @@ const News = {
                     img_urls: obj.media,
                 });
             });
-            // console.log(typeof tweets);
             res.json({
-                sortedTweets,
+                news,
             });
         } catch (error) {
             res.status(500).send(error.message);
