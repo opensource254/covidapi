@@ -12,8 +12,6 @@ const database = require('./api/v1/db/db');
 const Sequelize = require('./api/v1/db/index');
 require('dotenv').config();
 
-require('./api/v1/db/mongodb');
-
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
