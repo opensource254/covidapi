@@ -40,7 +40,7 @@ const HospController = {
         })
             .then((hosp) => {
                 if (!hosp) {
-                    res.json('No hospital was found');
+                    res.status(404).json('No hospital was found');
                 } else {
                     console.log(`retrived hospital ${JSON.stringify(hosp, null, 2)}`);
                     res.json(hosp);
