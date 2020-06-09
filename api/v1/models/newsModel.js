@@ -5,12 +5,21 @@ const Sequelize = require('../db/index');
 const News = db.define(
     'news',
     {
+        id: {
+            type: Sequelize.BIGINT,
+            allowNull: false,
+            primaryKey: true,
+        },
         text: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(1000),
+            allowNull: false,
+        },
+        img_urls: {
+            type: Sequelize.ARRAY(Sequelize.DataTypes.JSON),
             allowNull: false,
         },
         timestamp: {
-            type: Sequelize.STRING,
+            type: Sequelize.DATE,
             allowNull: false,
         },
         timestamp_relative: {
@@ -28,11 +37,24 @@ const News = db.define(
         },
     },
     {
+        hooks: {
+            async beforeCreate(news) {
+                news.timestamp.toLocaleDateString('en-KE', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+            },
+        },
+    },
+    {
         freezeTableName: true,
     }
 );
 
-News.sync({ alter: true })
+News.sync({ force: true })
     .then(() => console.log(colors.green('News table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the news table', err)));
 
