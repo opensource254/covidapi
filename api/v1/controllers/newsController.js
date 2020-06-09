@@ -7,7 +7,7 @@ const News = {
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
             });
             res.status(200).json({
-                news,
+                tweets: news,
             });
         } catch (error) {
             res.status(500).send(error.message);

@@ -19,10 +19,6 @@ const News = db.define(
             allowNull: false,
         },
         timestamp: {
-            type: Sequelize.DATE,
-            allowNull: false,
-        },
-        timestamp_relative: {
             type: Sequelize.STRING,
             allowNull: false,
         },
@@ -33,20 +29,7 @@ const News = db.define(
         screen_name: {
             type: Sequelize.STRING,
             allowNull: false,
-            defaultValue: 'MOH_KENYA',
-        },
-    },
-    {
-        hooks: {
-            async beforeCreate(news) {
-                news.timestamp.toLocaleDateString('en-KE', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                });
-            },
+            defaultValue: '@MOH_KENYA',
         },
     },
     {
@@ -54,7 +37,7 @@ const News = db.define(
     }
 );
 
-News.sync({ force: true })
+News.sync({ alter: true })
     .then(() => console.log(colors.green('News table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the news table', err)));
 
