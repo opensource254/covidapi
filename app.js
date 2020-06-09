@@ -33,7 +33,7 @@ const sessionStore = new SequelizeStore({
 });
 
 app.use(logger('dev'));
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
