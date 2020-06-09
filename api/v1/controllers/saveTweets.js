@@ -6,13 +6,15 @@ const NewsModel = require('../models/newsModel');
     try {
         const rawTweets = await axios.get('https://twitter.covid19kenya.site/api/v2/moh_kenya');
         const allTweets = rawTweets.data;
-        allTweets.map((tweet) => {
+        allTweets.map(async (tweet) => {
+            const media = await tweet.tweet_media.map((obj) => {
+                return obj.media_url_https;
+            });
             return NewsModel.create({
                 id: tweet.id,
                 text: tweet.tweet,
-                timestamp: tweet.created_at,
-                timestamp_relative: tweet.relative_time,
-                img_urls: tweet.tweet_media,
+                timestamp: tweet.relative_time,
+                img_urls: media,
                 username: tweet.user,
             });
         });
