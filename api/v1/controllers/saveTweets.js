@@ -1,28 +1,22 @@
 /* eslint-disable array-callback-return */
 const axios = require('axios');
-require('../db/mongodb');
 const NewsModel = require('../models/newsModel');
 
-(function saveTweets() {
-    axios
-        .get('http://localhost:1234/moh.json')
-        .then((res) =>
-            res.data.map((obj) => {
-                const news = new NewsModel({
-                    text: obj.text,
-                    timestamp: new Date(obj.timestamp).toLocaleDateString('en-KE', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                    }),
-                    username: obj.username,
-                    screen_name: obj.screen_name,
-                    img_urls: obj.img_urls,
-                });
-                news.save();
-            })
-        )
-        .catch((err) => console.log(err));
+(async function saveTweets() {
+    try {
+        const rawTweets = await axios.get('https://twitter.covid19kenya.site/api/v2/moh_kenya');
+        const allTweets = rawTweets.data;
+        allTweets.map((tweet) => {
+            return NewsModel.create({
+                id: tweet.id,
+                text: tweet.tweet,
+                timestamp: tweet.created_at,
+                timestamp_relative: tweet.relative_time,
+                img_urls: tweet.tweet_media,
+                username: tweet.user,
+            });
+        });
+    } catch (error) {
+        console.log(error);
+    }
 })();
