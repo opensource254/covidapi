@@ -1,4 +1,3 @@
-//test webhook again
 {
     "extends": [
         "airbnb-base",
