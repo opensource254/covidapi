@@ -10,7 +10,6 @@ const errHandler = require('./api/v1/middleware/errHandler');
 const db = require('./api/v1/db');
 const database = require('./api/v1/db/db');
 const Sequelize = require('./api/v1/db/index');
-require('dotenv').config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -30,18 +29,18 @@ const sessionStore = new SequelizeStore({
     db: database,
     table: 'Session',
     checkExpirationInterval: 15 * 60 * 1000,
-    expiration: 36000,
+    expiration: 10800000,
 });
 
 app.use(logger('dev'));
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: true,
         saveUninitialized: true,
         store: sessionStore,
-        cookie: { maxAge: 60000 },
+        cookie: { maxAge: 10800000 },
     })
 );
 app.use(routes);
