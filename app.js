@@ -29,7 +29,7 @@ const sessionStore = new SequelizeStore({
     db: database,
     table: 'Session',
     checkExpirationInterval: 15 * 60 * 1000,
-    expiration: 36000,
+    expiration: 10800000,
 });
 
 app.use(logger('dev'));
@@ -40,7 +40,7 @@ app.use(
         resave: true,
         saveUninitialized: true,
         store: sessionStore,
-        cookie: { maxAge: 60000 },
+        cookie: { maxAge: 10800000 },
     })
 );
 app.use(routes);
