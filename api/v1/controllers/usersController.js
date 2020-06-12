@@ -19,7 +19,7 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a user');
-                    res.status(400).json(err);
+                    res.status(422).json(err);
                 });
         } catch (error) {
             console.error(error);
@@ -43,7 +43,7 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a doctor');
-                    res.status(400).json(err);
+                    res.status(422).json(err);
                 });
         } catch (error) {
             console.error(error);
@@ -66,7 +66,7 @@ const userMethods = {
             }
         } catch (error) {
             console.error(error);
-            res.status(400).json({
+            res.status(422).json({
                 error: error.message,
             });
         }

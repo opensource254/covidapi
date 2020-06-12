@@ -13,14 +13,14 @@ const TipsController = {
                     });
                 })
                 .catch(function (err) {
-                    res.status(400).json({
-                        status: 400,
+                    res.status(422).json({
+                        status: 422,
                         err,
                     });
                 });
         } catch (error) {
-            res.status(400).json({
-                status: 400,
+            res.status(422).json({
+                status: 422,
                 error,
             });
         }
@@ -34,8 +34,8 @@ const TipsController = {
                 });
             })
             .catch(function (err) {
-                res.status(400).json({
-                    status: 400,
+                res.status(422).json({
+                    status: 422,
                     err,
                 });
             });
@@ -71,8 +71,8 @@ const TipsController = {
                     });
             });
         } catch (error) {
-            res.status(400).json({
-                status: 400,
+            res.status(422).json({
+                status: 422,
                 error,
             });
         }
