@@ -3,7 +3,6 @@ const { Sequelize } = require('../db');
 
 const countyController = {
     async create(req, res) {
-        // eslint-disable-next-line camelcase
         const { county_id, county, cases, recoveries, tests, deaths } = req.body;
         // this involves use of postGIS it will be revisited soon
         const point = {
@@ -18,33 +17,29 @@ const countyController = {
             recoveries,
             tests,
             deaths,
-            // lat,
-            // lon,
             position: point,
         });
         con.save()
             .then((_county) => {
-                return res.json({ status: 201, data: [_county] });
+                return res.status(201).json({ data: [_county] });
             })
             .catch(Sequelize.ValidationError, (err) => {
                 console.log('Couldnt create a county case');
-                res.json(err);
+                res.status(422).json(err);
             });
     },
     async getAll(req, res) {
         await County.findAll()
             .then((county) => {
                 if (!county) {
-                    res.json('No conty cases found');
+                    res.status(404).json('No conty cases found');
                 }
                 res.status(200).json({
-                    status: 200,
                     data: county,
                 });
             })
             .catch(function (err) {
-                res.status(400).json({
-                    status: 400,
+                res.status(422).json({
                     err,
                 });
             });
@@ -58,15 +53,15 @@ const countyController = {
         })
             .then((con) => {
                 if (!con) {
-                    res.json('No county cases was found');
+                    res.status(404).json('No county cases was found');
                 } else {
                     console.log(`retrived county case ${JSON.stringify(con, null, 2)}`);
-                    res.json(con);
+                    res.status(200).json(con);
                 }
             })
             .catch((err) => {
                 console.log(err);
-                res.json('No coounty cases was found');
+                res.status(422).json('No coounty cases was found');
             });
     },
 };
