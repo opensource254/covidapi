@@ -6,27 +6,25 @@ const HospController = {
         const hosp = await Hospital.create({ title, lat, lon, description, open });
         hosp.save()
             .then((hospital) => {
-                return res.json({ status: 201, data: [hospital] });
+                return res.status(201).json({ data: [hospital] });
             })
             .catch((err) => {
                 console.log('Couldnt create a hospital');
-                res.json(err);
+                res.status(422).json(err);
             });
     },
     async getAll(req, res) {
         await Hospital.findAll()
             .then((hosp) => {
                 if (!hosp) {
-                    res.json('No hospitals found');
+                    res.status(404).json('No hospitals found');
                 }
                 res.status(200).json({
-                    status: 200,
                     data: hosp,
                 });
             })
             .catch(function (err) {
                 res.status(422).json({
-                    status: 422,
                     err,
                 });
             });
@@ -43,12 +41,12 @@ const HospController = {
                     res.status(404).json('No hospital was found');
                 } else {
                     console.log(`retrived hospital ${JSON.stringify(hosp, null, 2)}`);
-                    res.json(hosp);
+                    res.status(200).json(hosp);
                 }
             })
             .catch((err) => {
                 console.log(err);
-                res.json('No hospital was found');
+                res.status(422).json(err.message);
             });
     },
     async updateHosp(req, res) {
@@ -59,14 +57,13 @@ const HospController = {
             if (!_hosp) {
                 console.log('No hospitals found');
             }
-            console.log(`retrived tip ${JSON.stringify(_hosp, null, 2)}`);
+            console.log(`retrived hospital ${JSON.stringify(_hosp, null, 2)}`);
             Hospital.update(values, { where: { id: _id }, returning: true, plain: true })
                 .then((updatedHosp) => {
-                    res.json(updatedHosp);
+                    res.status(200).json(updatedHosp);
                 })
                 .catch((err) => {
-                    // next(err);
-                    res.json('Could not update the hospitals');
+                    res.status(422).json('Could not update the hospitals');
                     console.log(err);
                 });
         });
