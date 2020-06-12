@@ -48,25 +48,58 @@ router.post(
     TipsController.create
 );
 router.get('/api/v1/tips', TipsController.getAll);
-router.put('/api/v1/tip/:id', TipsController.updateTip);
+router.put(
+    '/api/v1/tip/:id',
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    TipsController.updateTip
+);
 router.get('/api/v1/tip/:id', TipsController.getOne);
 
 // Routes for the alerts
-router.post('/api/v1/alert', /* authorize(Roles.User), */ AlertsController.create);
+router.post(
+    '/api/v1/alert',
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    AlertsController.create
+);
 router.get('/api/v1/alerts', AlertsController.getAll);
-router.put('/api/v1/alert/:id', /* authorize(Roles.Admin), */ AlertsController.updateAlert);
+router.put(
+    '/api/v1/alert/:id',
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    AlertsController.updateAlert
+);
 router.get('/api/v1/alert/:id', AlertsController.getOne);
 
 // Routes for hospital
-router.post('/api/v1/hospital', /* authorize(Roles.Admin, Roles.Doctor), */ HospController.create);
+router.post(
+    '/api/v1/hospital',
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    HospController.create
+);
 router.get('/api/v1/hospitals', HospController.getAll);
 router.get('/api/v1/hospital/:id', HospController.getOne);
 router.put(
     '/api/v1/hospital/:id',
-    /* authorize(Roles.Admin, Roles.Doctor), */ HospController.updateHosp
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    HospController.updateHosp
 );
 // covid cases api
-router.post('/api/v1/county_case', /* authorize(Roles.User), */ countyController.create);
+router.post(
+    '/api/v1/county_case',
+    IsLoggedin,
+    AuthMiddleware,
+    authorize(Roles.Admin),
+    countyController.create
+);
 router.get('/api/v1/counties', countyController.getAll);
 router.get('/api/v1/county/:id', countyController.getOne);
 module.exports = router;

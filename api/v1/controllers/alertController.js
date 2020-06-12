@@ -9,19 +9,16 @@ const AlertsController = {
                 .save()
                 .then(function (currentalert) {
                     return res.status(201).json({
-                        status: 201,
                         data: currentalert,
                     });
                 })
                 .catch(function (err) {
-                    res.status(400).json({
-                        status: 400,
+                    res.status(422).json({
                         err,
                     });
                 });
         } catch (error) {
-            res.status(400).json({
-                status: 400,
+            res.status(422).json({
                 error,
             });
         }
@@ -35,8 +32,7 @@ const AlertsController = {
                 });
             })
             .catch(function (err) {
-                res.status(400).json({
-                    status: 400,
+                res.status(422).json({
                     err,
                 });
             });
@@ -46,15 +42,17 @@ const AlertsController = {
         await Alert.findOne({ where: { id: _id } })
             .then((alert) => {
                 if (!alert) {
-                    res.json('No Alert was found');
+                    res.status(404).json('No Alert was found');
                 } else {
                     console.log(`retrived tip ${JSON.stringify(alert, null, 2)}`);
-                    res.json(alert);
+                    res.status(200).json(alert);
                 }
             })
             .catch((err) => {
                 console.log(err);
-                res.json('No Alert was found');
+                res.status(422).json({
+                    message: 'There was an error processing your request, try again',
+                });
             });
     },
     async updateAlert(req, res) {
@@ -65,14 +63,13 @@ const AlertsController = {
             Alert.findOne({ where: { id: _id } }).then((_alert) => {
                 if (!_alert) {
                     console.log('no Alert found');
-                    res.json('No Alert found');
+                    res.status(404).json('No Alert found');
                 }
-                console.log(`retrieved alert ${JSON.stringify(_alert, null, 2)}`);
+                console.log(`updated alert ${JSON.stringify(_alert, null, 2)}`);
                 Alert.update(values, { where: { id: _id }, returning: true, plain: true })
-                    // .then(Alert.findByPk(_id))
                     .then((updatedAlert) => {
                         console.log('Alert updated');
-                        res.json(updatedAlert);
+                        res.status(200).json(updatedAlert);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -80,8 +77,7 @@ const AlertsController = {
             });
         } catch (error) {
             console.log(error);
-            res.status(400).json({
-                status: 400,
+            res.status(422).json({
                 error,
             });
         }

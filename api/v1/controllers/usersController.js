@@ -19,7 +19,7 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a user');
-                    res.status(400).json(err);
+                    res.status(422).json(err);
                 });
         } catch (error) {
             console.error(error);
@@ -43,7 +43,7 @@ const userMethods = {
                 })
                 .catch((err) => {
                     console.log('Couldnt create a doctor');
-                    res.status(400).json(err);
+                    res.status(422).json(err);
                 });
         } catch (error) {
             console.error(error);
@@ -59,14 +59,13 @@ const userMethods = {
                 req.session.isLoggedin = true;
                 console.log(req.session);
                 return res.status(200).json({
-                    status: 200,
                     user,
                     token,
                 });
             }
         } catch (error) {
             console.error(error);
-            res.status(400).json({
+            res.status(422).json({
                 error: error.message,
             });
         }

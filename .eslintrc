@@ -17,10 +17,12 @@
         "consistent-return": "off",
         "no-use-before-define": "off",
         "no-param-reassign": "off",
+        "camelcase": "off",
         "import/no-extraneous-dependencies": "off",
         "func-names": "off",
         "prettier/prettier": [
-            "error",{
+            "error",
+            {
                 "endOfLine": "auto"
             }
         ]

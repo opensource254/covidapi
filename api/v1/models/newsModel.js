@@ -37,7 +37,7 @@ const News = db.define(
     }
 );
 
-News.sync({ alter: true })
+News.sync({ force: true })
     .then(() => console.log(colors.green('News table created succesfully')))
     .catch((err) => console.log(colors.red('Unable to create the news table', err)));
 
