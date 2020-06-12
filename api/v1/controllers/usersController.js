@@ -59,7 +59,6 @@ const userMethods = {
                 req.session.isLoggedin = true;
                 console.log(req.session);
                 return res.status(200).json({
-                    status: 200,
                     user,
                     token,
                 });
