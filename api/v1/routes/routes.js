@@ -39,13 +39,19 @@ router.post(
     TipsController.create
 );
 router.get('/api/v1/tips', TipsController.getAll);
+router.get('/api/v1/tip/:id', TipsController.getOne);
 router.put(
     '/api/v1/tip/:id',
     AuthMiddleware.authenticate,
     AuthMiddleware.authorize(Roles.Admin),
     TipsController.updateTip
 );
-router.get('/api/v1/tip/:id', TipsController.getOne);
+router.delete(
+    '/api/v1/tip/:id',
+    AuthMiddleware.authenticate,
+    AuthMiddleware.authorize(Roles.Admin),
+    TipsController.deleteTip
+);
 
 // Routes for the alerts
 router.post(
@@ -55,13 +61,19 @@ router.post(
     AlertsController.create
 );
 router.get('/api/v1/alerts', AlertsController.getAll);
+router.get('/api/v1/alert/:id', AlertsController.getOne);
 router.put(
     '/api/v1/alert/:id',
     AuthMiddleware.authenticate,
     AuthMiddleware.authorize(Roles.Admin),
     AlertsController.updateAlert
 );
-router.get('/api/v1/alert/:id', AlertsController.getOne);
+router.delete(
+    '/api/v1/alert/:id',
+    AuthMiddleware.authenticate,
+    AuthMiddleware.authorize(Roles.Admin),
+    AlertsController.deleteAlert
+);
 
 // Routes for hospital
 router.post(
@@ -78,6 +90,12 @@ router.put(
     AuthMiddleware.authorize(Roles.Admin),
     HospController.updateHosp
 );
+router.delete(
+    '/api/v1/hospital/:id',
+    AuthMiddleware.authenticate,
+    AuthMiddleware.authorize(Roles.Admin),
+    HospController.deleteHospital
+);
 // covid cases api
 router.post(
     '/api/v1/county_case',
@@ -87,4 +105,10 @@ router.post(
 );
 router.get('/api/v1/counties', countyController.getAll);
 router.get('/api/v1/county/:id', countyController.getOne);
+router.delete(
+    '/api/v1/county/:id',
+    AuthMiddleware.authenticate,
+    AuthMiddleware.authorize(Roles.Admin),
+    countyController.deleteCounty
+);
 module.exports = router;
