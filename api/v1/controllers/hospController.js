@@ -68,5 +68,27 @@ const HospController = {
                 });
         });
     },
+    async deleteHospital(req, res) {
+        const { id } = req.params;
+        try {
+            Hospital.findOne({ where: { id } }).then((hospital) => {
+                if (!hospital) {
+                    res.status(404).json('No hospital was found');
+                }
+                Hospital.destroy({ where: { id }, returning: true, plain: true })
+                    .then((deletedhospital) => {
+                        res.status(200).json(
+                            `Successfully deleted the hospital with the id  ${id}`
+                        );
+                    })
+                    .catch((err) => {
+                        res.status(422).json('Could not delete the hospital');
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
 };
 module.exports = HospController;
