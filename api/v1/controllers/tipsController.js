@@ -76,5 +76,25 @@ const TipsController = {
             });
         }
     },
+    async deleteTip(req, res) {
+        const { id } = req.params;
+        try {
+            Tip.findOne({ where: { id } }).then((tip) => {
+                if (!tip) {
+                    res.status(404).json('No Tip was found');
+                }
+                Tip.destroy({ where: { id }, returning: true, plain: true })
+                    .then((deletedTip) => {
+                        res.status(200).json(`Successfully deleted the Tip with the id  ${id}`);
+                    })
+                    .catch((err) => {
+                        res.status(422).json('Could not delete the Tip');
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
 };
 module.exports = TipsController;

@@ -82,5 +82,25 @@ const AlertsController = {
             });
         }
     },
+    async deleteAlert(req, res) {
+        const { id } = req.params;
+        try {
+            Alert.findOne({ where: { id } }).then((alert) => {
+                if (!alert) {
+                    res.status(404).json('No Alert was found');
+                }
+                Alert.destroy({ where: { id }, returning: true, plain: true })
+                    .then((deletedAlert) => {
+                        res.status(200).json(`Successfully deleted the Alert with the id  ${id}`);
+                    })
+                    .catch((err) => {
+                        res.status(422).json('Could not delete the Alert');
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
 };
 module.exports = AlertsController;
