@@ -64,6 +64,26 @@ const countyController = {
                 res.status(422).json('No coounty cases was found');
             });
     },
+    async deleteCounty(req, res) {
+        const { id } = req.params;
+        try {
+            County.findOne({ where: { id } }).then((county) => {
+                if (!county) {
+                    res.status(404).json('No County was found');
+                }
+                County.destroy({ where: { id }, returning: true, plain: true })
+                    .then((deletedCounty) => {
+                        res.status(200).json(`Successfully deleted the County with the id  ${id}`);
+                    })
+                    .catch((err) => {
+                        res.status(422).json('Could not delete the County');
+                        console.log(err);
+                    });
+            });
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
 };
 
 module.exports = countyController;
