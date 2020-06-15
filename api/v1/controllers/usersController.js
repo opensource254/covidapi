@@ -57,6 +57,7 @@ const userMethods = {
             if (user) {
                 req.session.user = user.dataValues;
                 req.session.isLoggedin = true;
+                req.session.token = token;
                 console.log(req.session);
                 return res.status(200).json({
                     user,
