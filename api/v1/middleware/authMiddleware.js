@@ -2,27 +2,35 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/0-usersModel');
 require('dotenv').config();
 
-const auth = async (req, res, next) => {
-    try {
-        const token = req.header('Authorization').replace('Bearer', '').trim();
+const secret = process.env.SECRET;
 
-        const decoded = jwt.verify(token, process.env.SECRET);
-
-        const user = await User.findOne({ where: { id: decoded.id } });
-
-        if (!user) {
-            throw new Error('User not found');
+const Authmiddleware = {
+    authenticate(req, res, next) {
+        if (req.session.isLoggedin) {
+            return next();
         }
-        console.log(decoded);
-        req.token = token;
-        req.user = user;
-        next();
-    } catch (error) {
-        console.log(error);
-        res.status(401).json({
-            err: 'Please authenticate!',
-            ERROR: error.message,
-        });
-    }
+        res.status(401).json({ message: 'You are not logged in' });
+    },
+    authorize(roles = []) {
+        if (typeof roles === 'string') {
+            roles = [roles];
+        }
+        return [
+            async (req, res, next) => {
+                const { token } = req.session;
+                const decoded = jwt.verify(token, secret);
+                const user = await User.findOne({ where: { id: decoded.id } });
+                req.token = token;
+                req.user = user;
+                if (roles.length && !roles.includes(req.user.role)) {
+                    return res
+                        .status(401)
+                        .json({ message: 'You are not authorized to make this request' });
+                }
+                next();
+            },
+        ];
+    },
 };
-module.exports = auth;
+
+module.exports = Authmiddleware;
