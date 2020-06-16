@@ -1,11 +1,12 @@
 ﻿const User = require('../models/0-usersModel');
+const { utilCreate } = require('../helpers/utilService');
 require('dotenv').config();
 
 const userMethods = {
     async signup(req, res) {
         try {
             const { firstname, lastname, email, password, location } = req.body;
-            const user = await User.create({
+            await utilCreate(req, res, User, {
                 role: 'admin',
                 firstname,
                 lastname,
@@ -13,14 +14,6 @@ const userMethods = {
                 password,
                 location,
             });
-            user.save()
-                .then((userparam) => {
-                    return res.status(201).json({ userparam });
-                })
-                .catch((err) => {
-                    console.log('Couldnt create a user');
-                    res.status(422).json(err);
-                });
         } catch (error) {
             console.error(error);
             res.status(500).json(error);
@@ -29,7 +22,7 @@ const userMethods = {
     async docsignup(req, res) {
         try {
             const { firstname, lastname, email, password, location } = req.body;
-            const user = await User.create({
+            await utilCreate(req, res, User, {
                 role: 'doctor',
                 firstname,
                 lastname,
@@ -37,14 +30,6 @@ const userMethods = {
                 password,
                 location,
             });
-            user.save()
-                .then((userparam) => {
-                    return res.status(201).json({ userparam });
-                })
-                .catch((err) => {
-                    console.log('Couldnt create a doctor');
-                    res.status(422).json(err);
-                });
         } catch (error) {
             console.error(error);
             res.status(500).json(error);
