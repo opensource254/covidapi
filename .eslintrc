@@ -18,10 +18,12 @@
         "no-use-before-define": "off",
         "no-param-reassign": "off",
         "camelcase": "off",
+        "no-self-assign": "off",
+        "no-unused-vars": "warn",
         "import/no-extraneous-dependencies": "off",
         "func-names": "off",
         "prettier/prettier": [
-            "error",
+            "warn",
             {
                 "endOfLine": "auto"
             }

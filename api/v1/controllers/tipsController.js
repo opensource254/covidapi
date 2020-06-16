@@ -1,21 +1,17 @@
 const Tip = require('../models/tipsModel');
+const {
+    utilGetAll,
+    utilCreate,
+    utilGetOne,
+    utilUpdate,
+    utilDelete,
+} = require('../helpers/utilService');
 
 const TipsController = {
     async create(req, res) {
         const { title, detail, thumbnail } = req.body;
         try {
-            const tip = await Tip.create({ title, detail, thumbnail });
-            tip.save()
-                .then(function (currenttip) {
-                    return res.status(201).json({
-                        data: [currenttip],
-                    });
-                })
-                .catch(function (err) {
-                    res.status(422).json({
-                        err,
-                    });
-                });
+            await utilCreate(req, res, Tip, { title, detail, thumbnail });
         } catch (error) {
             res.status(422).json({
                 error,
@@ -23,53 +19,18 @@ const TipsController = {
         }
     },
     async getAll(req, res) {
-        await Tip.findAll()
-            .then(function (tips) {
-                if (!tips) {
-                    res.status(404).json('No tips found');
-                }
-                return res.status(200).json({
-                    data: tips,
-                });
-            })
-            .catch(function (err) {
-                res.status(422).json({
-                    err,
-                });
-            });
+        await utilGetAll(req, res, Tip);
     },
     async getOne(req, res) {
-        const _id = req.params.id;
-        await Tip.findOne({ where: { id: _id } })
-            .then((tip) => {
-                if (!tip) {
-                    res.status(404).json('No tip found');
-                }
-                console.log(`retrived tip ${JSON.stringify(tip, null, 2)}`);
-                res.status(200).json(tip);
-            })
-            .catch((err) => console.log(err));
+        const { id } = req.params;
+        await utilGetOne(req, res, Tip, id);
     },
     async updateTip(req, res) {
         const { title, detail, thumbnail } = req.body;
-        const _id = req.params.id;
+        const { id } = req.params;
         const values = { title, detail, thumbnail };
         try {
-            Tip.findOne({ where: { id: _id } }).then((_tip) => {
-                if (!_tip) {
-                    console.log('No Tips found');
-                    res.status(404).json('No Tips found');
-                }
-                console.log(`retrived tip ${JSON.stringify(_tip, null, 2)}`);
-                Tip.update(values, { where: { id: _id }, returning: true, plain: true })
-                    .then((updatedTip) => {
-                        res.status(200).json(updatedTip);
-                    })
-                    .catch((err) => {
-                        res.status(422).json('Could not update the tip');
-                        console.log(err);
-                    });
-            });
+            utilUpdate(req, res, Tip, values, id);
         } catch (error) {
             res.status(422).json({
                 error,
@@ -79,21 +40,9 @@ const TipsController = {
     async deleteTip(req, res) {
         const { id } = req.params;
         try {
-            Tip.findOne({ where: { id } }).then((tip) => {
-                if (!tip) {
-                    res.status(404).json('No Tip was found');
-                }
-                Tip.destroy({ where: { id }, returning: true, plain: true })
-                    .then((deletedTip) => {
-                        res.status(200).json(`Successfully deleted the Tip with the id  ${id}`);
-                    })
-                    .catch((err) => {
-                        res.status(422).json('Could not delete the Tip');
-                        console.log(err);
-                    });
-            });
+            utilDelete(req, res, Tip, id);
         } catch (error) {
-            res.status(500).json(error);
+            res.status(422).json(error);
         }
     },
 };
