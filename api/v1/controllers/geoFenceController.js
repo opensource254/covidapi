@@ -32,7 +32,11 @@ const GeofenceController = {
             type: 'Point',
             coordinates: [req.body.lat, req.body.lon],
         };
-        await utilUpdate(req, res, Geofence, { position: point }, id);
+        try {
+            await utilUpdate(req, res, Geofence, { name, position: point }, id);
+        } catch (error) {
+            res.status(422).json(error.message);
+        }
     },
     async delete(req, res) {
         const { id } = req.params;
