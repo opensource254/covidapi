@@ -8,6 +8,7 @@
         "start": "cross-env NODE_ENV=development node server.js",
         "dev": "cross-env NODE_ENV=development nodemon server.js",
         "fetch": "node ./api/v1/controllers/saveTweets.js",
+        "hospital": "node ./api/v1/controllers/saveHospitals.js",
         "test-users": "node ./api/v1/models/0-usersModel.js"
     },
     "repository": {
