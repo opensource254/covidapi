@@ -8,6 +8,10 @@ const Geofence = db.define(
         position: {
             type: Sequelize.GEOMETRY('Point'),
         },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
     },
     {
         freezeTableName: true,
