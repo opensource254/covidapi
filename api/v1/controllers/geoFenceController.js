@@ -9,12 +9,13 @@ const {
 
 const GeofenceController = {
     async create(req, res) {
+        const { name } = req.body;
         const point = {
             type: 'Point',
             coordinates: [req.body.lat, req.body.lon],
         };
         try {
-            await utilCreate(req, res, Geofence, { position: point });
+            await utilCreate(req, res, Geofence, { name, position: point });
         } catch (error) {
             res.status(422).json(error.message);
         }
@@ -28,6 +29,7 @@ const GeofenceController = {
     },
     async update(req, res) {
         const { id } = req.params;
+        const { name } = req.body;
         const point = {
             type: 'Point',
             coordinates: [req.body.lat, req.body.lon],
