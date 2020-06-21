@@ -11,21 +11,26 @@
 
 # Resource endpoints
 
-| Request | Endpoint               | Function              | Authorized users |
-| ------- | ---------------------- | --------------------- | ---------------- |
-| POST    | `/api/v1/tip`          | Create a new tip      | Admin, Doctor    |
-| GET     | `/api/v1/tips`         | Get all tips          | Everyone         |
-| GET     | `/api/v1/tip/:id`      | Get a tip             | Everyone         |
-| PUT     | `/api/v1/tip/:id`      | Update a tip          | Admin, Doctor    |
-| POST    | `/api/v1/alert`        | Create a new alert    | Admin            |
-| GET     | `/api/v1/alerts`       | Get all alerts        | Everyone         |
-| GET     | `/api/v1/alert/:id`    | Get an alert          | Everyone         |
-| PUT     | `/api/v1/alert/:id`    | Update an alert       | Admin            |
-| POST    | `/api/v1/hospital`     | Create a new hospital | Admin, Doctor    |
-| GET     | `/api/v1/hospitals`    | Get all hospitals     | Everyone         |
-| GET     | `/api/v1/hospital/:id` | Get a hospital        | Everyone         |
-| PUT     | `/api/v1/hospital/:id` | Update a hospital     | Admin, Doctor    |
-| GET     | `/api/v1/tweets`       | Get all tweets        | Everyone         |
+| Request | Endpoint               | Function                 | Authorized users |
+| ------- | ---------------------- | ------------------------ | ---------------- |
+| POST    | `/api/v1/tip`          | Create a new tip         | Admin            |
+| GET     | `/api/v1/tips`         | Get all tips             | Public           |
+| GET     | `/api/v1/tip/:id`      | Get a tip                | Public           |
+| PUT     | `/api/v1/tip/:id`      | Update a tip             | Admin            |
+| POST    | `/api/v1/alert`        | Create a new alert       | Admin            |
+| GET     | `/api/v1/alerts`       | Get all alerts           | Public           |
+| GET     | `/api/v1/alert/:id`    | Get an alert             | Public           |
+| PUT     | `/api/v1/alert/:id`    | Update an alert          | Admin            |
+| POST    | `/api/v1/hospital`     | Create a new hospital    | Admin            |
+| GET     | `/api/v1/hospitals`    | Get all hospitals        | Public           |
+| GET     | `/api/v1/hospital/:id` | Get a hospital           | Public           |
+| PUT     | `/api/v1/hospital/:id` | Update a hospital        | Admin            |
+| GET     | `/api/v1/tweets`       | Get all tweets           | Public           |
+| POST    | `/api/v1/geofence`     | Create a geofence record | Admin            |
+| GET     | `/api/v1/geofence/:id` | Get a geofence records   | Admin            |
+| GET     | `/api/v1/geofences`    | Get all geofence records | Admin            |
+| PUT     | `/api/v1/geofence/:id` | Update a geofence record | Admin            |
+| DELETE  | `/api/v1/geofence/:id` | Delete a geofence record | Admin            |
 
 # Auth endpoints
 

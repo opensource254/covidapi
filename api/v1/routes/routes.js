@@ -7,6 +7,7 @@ const AlertsController = require('../controllers/alertController');
 const NewsController = require('../controllers/newsController');
 const HospController = require('../controllers/hospController');
 const countyController = require('../controllers/countiesController');
+const GeofenceController = require('../controllers/geoFenceController');
 
 // Routes for authenticated  user
 router.get('/api/v1/home', AuthMiddleware.authenticate, (req, res) => {
@@ -111,4 +112,11 @@ router.delete(
     AuthMiddleware.authorize(Roles.Admin),
     countyController.deleteCounty
 );
+
+// Routes for geofence
+router.post('/api/v1/geofence', GeofenceController.create);
+router.get('/api/v1/geofence/:id', GeofenceController.getOne);
+router.get('/api/v1/geofences', GeofenceController.getAll);
+router.put('/api/v1/geofence/:id', GeofenceController.update);
+router.delete('/api/v1/geofence/:id', GeofenceController.delete);
 module.exports = router;
