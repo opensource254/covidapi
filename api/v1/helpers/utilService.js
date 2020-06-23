@@ -28,8 +28,16 @@ async function utilGetOne(req, res, Entity, id) {
             res.status(422).json(err.message);
         });
 }
+
 async function utilGetAll(req, res, Entity) {
-    return Entity.findAll()
+    // pagination
+    const limit = 15;
+    const offset = 0 + (req.query.page - 1) * limit;
+    return Entity.findAndCountAll({
+        offset,
+        limit,
+        // order:
+    })
         .then((entity) => {
             if (!entity) {
                 res.status(404).json(notFound);
