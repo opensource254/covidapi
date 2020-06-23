@@ -31,7 +31,13 @@ async function utilGetOne(req, res, Entity, id) {
 
 async function utilGetAll(req, res, Entity) {
     // pagination
-    const limit = 15;
+    let limit;
+    if (req.query.count) {
+        limit = req.query.count;
+    } else {
+        limit = 15;
+    }
+
     const offset = 0 + (req.query.page - 1) * limit;
     return Entity.findAndCountAll({
         offset,
@@ -43,7 +49,15 @@ async function utilGetAll(req, res, Entity) {
                 res.status(404).json(notFound);
             }
             res.status(200).json({
-                data: entity,
+                total: entity.count,
+                per_page: parseInt(limit, 10),
+                current_page: parseInt(req.query.page, 10),
+                last_page: entity.count / parseInt(limit, 10),
+                prev_page: parseInt(req.query.page, 10) - 1,
+                next_page: parseInt(req.query.page, 10) + 1,
+                from: parseInt(offset, 10) + 1,
+                to: parseInt(req.query.page, 10) * limit,
+                data: entity.rows,
             });
         })
         .catch(function (err) {
