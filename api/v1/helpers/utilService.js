@@ -76,6 +76,7 @@ async function utilGetAll(req, res, Entity) {
             });
         });
 }
+
 async function utilUpdate(req, res, Entity, Params = {}, id) {
     Entity.findOne({ where: { id } }).then((entity) => {
         if (!entity) {
