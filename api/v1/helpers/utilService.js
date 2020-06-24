@@ -32,13 +32,23 @@ async function utilGetOne(req, res, Entity, id) {
 async function utilGetAll(req, res, Entity) {
     // pagination
     let limit;
+    let offset;
     if (req.query.count) {
         limit = req.query.count;
-    } else {
+    }
+    // This might be rendered useless
+    // Leave it till refactoring and proper testing
+    else if (req.query.count === null) {
         limit = 15;
+    } else {
+        limit = null;
+    }
+    if (req.query.page) {
+        offset = 0 + (req.query.page - 1) * limit;
+    } else {
+        offset = 0;
     }
 
-    const offset = 0 + (req.query.page - 1) * limit;
     return Entity.findAndCountAll({
         offset,
         limit,
