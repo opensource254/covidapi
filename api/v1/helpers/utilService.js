@@ -43,6 +43,7 @@ async function utilGetAll(req, res, Entity) {
     } else {
         limit = null;
     }
+
     if (req.query.page) {
         offset = 0 + (req.query.page - 1) * limit;
     } else {
@@ -70,9 +71,13 @@ async function utilGetAll(req, res, Entity) {
                 data: entity.rows,
             });
         })
-        .catch(function (err) {
+        .catch((err) => {
+            // we shall type print out errors to the console log.
+            // for production
+            console.log(err);
             res.status(422).json({
-                err,
+                code: err.parent.code,
+                message: 'An error occured',
             });
         });
 }
