@@ -28,22 +28,60 @@ async function utilGetOne(req, res, Entity, id) {
             res.status(422).json(err.message);
         });
 }
+
 async function utilGetAll(req, res, Entity) {
-    return Entity.findAll()
+    // pagination
+    let limit;
+    let offset;
+    if (req.query.count) {
+        limit = req.query.count;
+    }
+    // This might be rendered useless
+    // Leave it till refactoring and proper testing
+    else if (req.query.count === null) {
+        limit = 15;
+    } else {
+        limit = null;
+    }
+
+    if (req.query.page) {
+        offset = 0 + (req.query.page - 1) * limit;
+    } else {
+        offset = 0;
+    }
+
+    return Entity.findAndCountAll({
+        offset,
+        limit,
+        // order:
+    })
         .then((entity) => {
             if (!entity) {
                 res.status(404).json(notFound);
             }
             res.status(200).json({
-                data: entity,
+                total: entity.count,
+                per_page: parseInt(limit, 10),
+                current_page: parseInt(req.query.page, 10),
+                last_page: entity.count / parseInt(limit, 10),
+                prev_page: parseInt(req.query.page, 10) - 1,
+                next_page: parseInt(req.query.page, 10) + 1,
+                from: parseInt(offset, 10) + 1,
+                to: parseInt(req.query.page, 10) * limit,
+                data: entity.rows,
             });
         })
-        .catch(function (err) {
+        .catch((err) => {
+            // we shall type print out errors to the console log.
+            // for production
+            console.log(err);
             res.status(422).json({
-                err,
+                code: err.parent.code,
+                message: 'An error occured',
             });
         });
 }
+
 async function utilUpdate(req, res, Entity, Params = {}, id) {
     Entity.findOne({ where: { id } }).then((entity) => {
         if (!entity) {
