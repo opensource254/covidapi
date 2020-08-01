@@ -1,4 +1,5 @@
 const NewsModel = require('../models/newsModel');
+const globalErr = require('../helpers/globalError');
 
 const News = {
     async getTweets(req, res) {
@@ -10,7 +11,8 @@ const News = {
                 tweets: news,
             });
         } catch (error) {
-            res.status(500).send(error.message);
+            console.log(error);
+            res.status(500).send(globalErr);
         }
     },
 };

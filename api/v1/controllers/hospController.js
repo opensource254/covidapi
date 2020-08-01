@@ -1,4 +1,5 @@
 const Hospital = require('../models/hospModel');
+const globalErr = require('../helpers/globalError');
 const {
     utilGetAll,
     utilCreate,
@@ -13,7 +14,8 @@ const HospController = {
         try {
             await utilCreate(req, res, Hospital, { title, lat, lon, description, open });
         } catch (error) {
-            res.status(422).json(error.message);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
     async getAll(req, res) {
@@ -30,7 +32,8 @@ const HospController = {
         try {
             await utilUpdate(req, res, Hospital, values, id);
         } catch (error) {
-            res.status(422).json(error);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
     async deleteHospital(req, res) {
@@ -38,7 +41,8 @@ const HospController = {
         try {
             await utilDelete(req, res, Hospital, id);
         } catch (error) {
-            res.status(422).json(error);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
 };

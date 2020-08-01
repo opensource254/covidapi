@@ -1,5 +1,6 @@
 ﻿const User = require('../models/0-usersModel');
 const { utilCreate } = require('../helpers/utilService');
+const globalErr = require('../helpers/globalError');
 require('dotenv').config();
 
 const userMethods = {
@@ -16,7 +17,7 @@ const userMethods = {
             });
         } catch (error) {
             console.error(error);
-            res.status(500).json(error);
+            res.status(500).json(globalErr);
         }
     },
     async docsignup(req, res) {
@@ -32,7 +33,7 @@ const userMethods = {
             });
         } catch (error) {
             console.error(error);
-            res.status(500).json(error);
+            res.status(500).json(globalErr);
         }
     },
     async login(req, res, next) {
@@ -52,7 +53,7 @@ const userMethods = {
         } catch (error) {
             console.error(error);
             res.status(422).json({
-                error: error.message,
+                globalErr,
             });
         }
     },
