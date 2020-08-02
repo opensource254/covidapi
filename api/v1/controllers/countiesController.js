@@ -1,4 +1,5 @@
 const County = require('../models/countyModel');
+const globalErr = require('../helpers/globalError');
 const { utilGetAll, utilCreate, utilGetOne, utilDelete } = require('../helpers/utilService');
 
 const countyController = {
@@ -20,7 +21,8 @@ const countyController = {
                 position: point,
             });
         } catch (error) {
-            res.status(422).json(error.message);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
     async getAll(req, res) {
@@ -35,7 +37,8 @@ const countyController = {
         try {
             utilDelete(req, res, County, id);
         } catch (error) {
-            res.status(422).json(error);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
 };
