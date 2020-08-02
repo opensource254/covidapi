@@ -1,4 +1,6 @@
 const Alert = require('../models/alertModel');
+const globalErr = require('../helpers/globalError');
+
 const {
     utilGetAll,
     utilCreate,
@@ -13,8 +15,9 @@ const AlertsController = {
         try {
             utilCreate(req, res, Alert, { title, detail, time });
         } catch (error) {
+            console.log(error);
             res.status(422).json({
-                error,
+                globalErr,
             });
         }
     },
@@ -32,8 +35,9 @@ const AlertsController = {
         try {
             utilUpdate(req, res, Alert, values, id);
         } catch (error) {
+            console.log(error);
             res.status(422).json({
-                error,
+                globalErr,
             });
         }
     },
@@ -42,7 +46,8 @@ const AlertsController = {
         try {
             utilDelete(req, res, Alert, id);
         } catch (error) {
-            res.status(422).json(error);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
 };

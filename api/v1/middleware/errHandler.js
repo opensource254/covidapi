@@ -1,12 +1,17 @@
+const error = require('../helpers/globalError');
+
 module.exports = {
     errHandler: (err, req, res, next) => {
         if (typeof err === 'string') {
-            return res.status(422).json({ status: err.status, message: err });
+            console.log(err);
+            return res.status(422).json({ status: err.status, message: error });
         }
         if (err.name === 'UnauthorizedError') {
-            return res.status(401).json({ status: err.status, message: 'Invalid Token' });
+            console.log('Invalid Token');
+            return res.status(401).json({ status: err.status, message: error });
         }
 
-        return res.status(500).json({ status: err.status, message: err.message });
+        console.log(err.message);
+        return res.status(500).json({ status: err.status, message: error });
     },
 };

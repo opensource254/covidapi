@@ -1,4 +1,5 @@
 const Geofence = require('../models/geoFenceModel');
+const globalErr = require('../helpers/globalError');
 const {
     utilGetAll,
     utilCreate,
@@ -17,7 +18,8 @@ const GeofenceController = {
         try {
             await utilCreate(req, res, Geofence, { name, position: point });
         } catch (error) {
-            res.status(422).json(error.message);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
     async getAll(req, res) {
@@ -37,7 +39,8 @@ const GeofenceController = {
         try {
             await utilUpdate(req, res, Geofence, { name, position: point }, id);
         } catch (error) {
-            res.status(422).json(error.message);
+            console.log(error);
+            res.status(422).json(globalErr);
         }
     },
     async delete(req, res) {

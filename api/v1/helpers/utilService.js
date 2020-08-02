@@ -1,3 +1,5 @@
+const error = require('./globalError');
+
 const notFound = 'Nothing found!!';
 async function utilCreate(req, res, Entity, Params = {}) {
     return Entity.create(Params)
@@ -5,8 +7,8 @@ async function utilCreate(req, res, Entity, Params = {}) {
             return res.status(201).json({ data: entity });
         })
         .catch((err) => {
-            console.log(err.message);
-            res.status(422).json(err);
+            console.log(err);
+            res.status(422).json(error);
         });
 }
 async function utilGetOne(req, res, Entity, id) {
@@ -25,7 +27,7 @@ async function utilGetOne(req, res, Entity, id) {
         })
         .catch((err) => {
             console.log(err);
-            res.status(422).json(err.message);
+            res.status(422).json(error);
         });
 }
 
@@ -76,8 +78,7 @@ async function utilGetAll(req, res, Entity) {
             // for production
             console.log(err);
             res.status(422).json({
-                code: err.parent.code,
-                message: 'An error occured',
+                message: error,
             });
         });
 }
@@ -93,7 +94,7 @@ async function utilUpdate(req, res, Entity, Params = {}, id) {
                 res.status(200).json(updatedEntity);
             })
             .catch((err) => {
-                res.status(422).json('Unable to update');
+                res.status(422).json(error);
                 console.log(err);
             });
     });
@@ -109,7 +110,7 @@ async function utilDelete(req, res, Entity, id) {
                 res.status(200).json(`Successfully deleted the item with the id  ${id}`);
             })
             .catch((err) => {
-                res.status(422).json('Unable to delete');
+                res.status(422).json(error);
                 console.log(err);
             });
     });

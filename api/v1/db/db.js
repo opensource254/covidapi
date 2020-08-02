@@ -6,6 +6,7 @@ const db = new Sequelize({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     dialect: 'postgres',
+    logging: false,
 });
 db.authenticate()
     .then(() => console.log('Database Connected'))
